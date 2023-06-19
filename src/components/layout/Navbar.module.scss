@@ -1,0 +1,33 @@
+.brandImage {
+  width: 50px;
+}
+
+.toggler {
+  border: none !important;
+
+  &:focus {
+    outline: none;
+    box-shadow: 1px 1px 20px #3258a8 !important;
+  }
+}
+
+.active {
+  color: #081023 !important;
+}
+
+.profile{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #3258a8;
+    padding: 2px;
+    img{
+        border-radius: 50%;
+    }
+}
+
+.dropdownToggle::after{
+       margin-top: 1rem;
+       margin-left: .5rem;
+}
