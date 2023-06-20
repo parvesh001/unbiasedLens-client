@@ -34,6 +34,10 @@ a{
     }
 }
 
+.dropdownToggle::before{
+      content: none!important;
+}
+
 
 @media screen and(min-width:750px) {
   .brandImage{

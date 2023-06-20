@@ -1,12 +1,8 @@
 import "./App.scss";
-import Navbar from "./components/layout/Navbar";
+import Layout from "./components/layout/Layout";
 
 function App() {
-  return (
-    <>
-    <Navbar/>
-    </>
-  );
+  return <Layout></Layout>;
 }
 
 export default App;

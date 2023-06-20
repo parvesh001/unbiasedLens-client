@@ -107,7 +107,7 @@ export default function Navbar() {
                 style={{ content: "none" }}
               >
                 <div
-                  className="dropdown-toggle"
+                  className={`dropdown-toggle d-flex ${styles.dropdownToggle}`}
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
