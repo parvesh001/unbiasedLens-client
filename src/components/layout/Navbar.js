@@ -1,18 +1,19 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { RiMenu4Line } from "react-icons/ri";
 import styles from "./Navbar.module.scss";
 
 export default function Navbar() {
+  const loggedIn = true;
   const categories = [
-    "Developers World",
-    "Web App",
-    "MERN Stack",
-    "Database",
-    "API Developement",
-    "App Security",
-    "Coding",
-    "Python",
+    { name: "Developers World", _id: "1" },
+    { name: "Wep App", _id: "2" },
+    { name: "MERN Stack", _id: "3" },
+    { name: "Database", _id: "4" },
+    { name: "API Development", _id: "5" },
+    { name: "APP Security", _id: "6" },
+    { name: "Coding", _id: "7" },
+    { name: "Python", _id: "8" },
   ];
   const showedCategories = [];
   const moreCategories = [];
@@ -29,13 +30,14 @@ export default function Navbar() {
 
   const navLinks = showedCategories.map((category, index) => {
     return (
-      <li className="nav-item">
+      <li className="nav-item" key={category._id}>
         <NavLink
-          className="nav-link"
-          activeClassName={styles.active}
-          to={`/${category}`}
+          className={(navData) =>
+            navData.isActive ? `nav-link ${styles.active}` : "nav-link"
+          }
+          to={`/${category.name}`}
         >
-          {category}
+          {category.name}
         </NavLink>
       </li>
     );
@@ -43,18 +45,21 @@ export default function Navbar() {
 
   const moreNavLinks = moreCategories.map((category) => {
     return (
-      <li>
+      <li key={category._id}>
         <NavLink
-          className="dropdown-item text-body-secondary"
-          activeClassName={styles.active}
-          to={`/${category}`}
+          className={(navData) =>
+            navData.isActive
+              ? `dropdown-item ${styles.active}`
+              : "dropdown-item"
+          }
+          to={`/${category.name}`}
         >
-          {category}
+          {category.name}
         </NavLink>
       </li>
     );
   });
- 
+
   return (
     <nav className="navbar navbar-expand-md bg-body-tertiary">
       <div className="container-fluid">
@@ -80,7 +85,7 @@ export default function Navbar() {
           className="collapse navbar-collapse mt-2"
           id="navbarSupportedContent"
         >
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-md-flex justify-content-end w-100 gap-md-2">
             {navLinks}
             <li className="nav-item dropdown mt-2">
               <div
@@ -91,27 +96,45 @@ export default function Navbar() {
               >
                 More
               </div>
-              <ul className="dropdown-menu">{moreNavLinks}</ul>
+              <ul className="dropdown-menu top-50">{moreNavLinks}</ul>
             </li>
-            <li className="nav-item dropdown mt-2">
-              <div
-                className={`dropdown-toggle d-flex ${styles.dropdownToggle}`}
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+            <li className="nav-item">
+              <button className="btn btn-primary mx-md-3 mt-3 mt-md-0">Create</button>
+            </li>
+            {loggedIn && (
+              <li
+                className="nav-item dropdown dropstart mt-3 mt-md-0"
+                style={{ content: "none" }}
               >
-                <div className={styles.profile}>
-                  <img src="/img/user-1.jpg" className="w-100" alt="user" />
+                <div
+                  className="dropdown-toggle"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <div className={styles.profile}>
+                    <img src="/img/user-1.jpg" className="w-100" alt="user" />
+                  </div>
                 </div>
-              </div>
-              <ul className="dropdown-menu">
-                <li>
-                  <a className="dropdown-item" href="/">
-                    Action
-                  </a>
-                </li>
-              </ul>
-            </li>
+                <ul className="dropdown-menu">
+                  <li>
+                    <Link className="dropdown-item" to="/">
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/">
+                      Logout
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            )}
+            {!loggedIn && (
+              <li className="nav-item">
+                <button className="btn btn-primary my-3 my-md-0">Register</button>
+              </li>
+            )}
           </ul>
         </div>
       </div>
