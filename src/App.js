@@ -1,10 +1,10 @@
 import "./App.scss";
-import BlogCard from "./components/blog/BlogCard";
+import BlogCards from "./components/blog/BlogCards";
 import Layout from "./components/layout/Layout";
 
 function App() {
   return <Layout>
-    <BlogCard/>
+    <BlogCards/>
   </Layout>;
 }
 
