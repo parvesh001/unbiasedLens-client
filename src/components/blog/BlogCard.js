@@ -16,9 +16,9 @@ export default function BlogCard({
   onRemoveDislike,
 }) {
   return (
-    <div className={`card ${styles.blogCard}`}>
+    <div className={`card p-0  ${styles.blogCard}`}>
       <div className={styles.cardOverlayShadow} />
-      <img src={post.image} className="card-img w-100 h-100" alt="..." />
+      <img src={post.image} className={`card-img ${styles.blogCardImg}`} alt="..." />
       <div className="card-img-overlay">
         <div className="card-subtitle">
           <div className="d-flex gap-2" style={{ cursor: "pointer" }}>

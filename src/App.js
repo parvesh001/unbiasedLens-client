@@ -1,11 +1,19 @@
+import { Routes, Route } from "react-router-dom";
 import "./App.scss";
-import BlogCards from "./components/blog/BlogCards";
 import Layout from "./components/layout/Layout";
+import CategoryBlogs from "./pages/blog/CategoryBlogs";
 
 function App() {
-  return <Layout>
-    <BlogCards/>
-  </Layout>;
+  return (
+    <Layout>
+      <Routes>
+        <Route
+          path="/blogs/category/:blogCategory"
+          element={<CategoryBlogs />}
+        />
+      </Routes>
+    </Layout>
+  );
 }
 
 export default App;

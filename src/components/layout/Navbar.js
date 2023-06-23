@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { RiMenu4Line } from "react-icons/ri";
 import styles from "./Navbar.module.scss";
 
 export default function Navbar() {
   const loggedIn = true;
-  const categories = [
-    { name: "Developers World", _id: "1" },
-    { name: "Wep App", _id: "2" },
-    { name: "MERN Stack", _id: "3" },
-    { name: "Database", _id: "4" },
-    { name: "API Development", _id: "5" },
-    { name: "APP Security", _id: "6" },
-    { name: "Coding", _id: "7" },
-    { name: "Python", _id: "8" },
-  ];
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    (async function () {
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/category')
+        if(!response.ok){
+          const errData = await response.json();
+          throw new Error(errData.message)
+        }
+        const data = await response.json();
+        setCategories(data.categories)
+      } catch (err) {
+        console.log(err.message)
+      }
+    })();
+  }, []);
+
   const showedCategories = [];
   const moreCategories = [];
 
@@ -35,7 +43,7 @@ export default function Navbar() {
           className={(navData) =>
             navData.isActive ? `nav-link ${styles.active}` : "nav-link"
           }
-          to={`/${category.name}`}
+          to={`/blogs/category/${category.slug}`}
         >
           {category.name}
         </NavLink>
@@ -52,7 +60,7 @@ export default function Navbar() {
               ? `dropdown-item ${styles.active}`
               : "dropdown-item"
           }
-          to={`/${category.name}`}
+          to={`/blogs/category/${category.slug}`}
         >
           {category.name}
         </NavLink>
@@ -99,7 +107,9 @@ export default function Navbar() {
               <ul className="dropdown-menu top-50">{moreNavLinks}</ul>
             </li>
             <li className="nav-item">
-              <button className="btn btn-primary mx-md-3 mt-3 mt-md-0">Create</button>
+              <button className="btn btn-primary mx-md-3 mt-3 mt-md-0">
+                Create
+              </button>
             </li>
             {loggedIn && (
               <li
@@ -132,7 +142,9 @@ export default function Navbar() {
             )}
             {!loggedIn && (
               <li className="nav-item">
-                <button className="btn btn-primary my-3 my-md-0">Register</button>
+                <button className="btn btn-primary my-3 my-md-0">
+                  Register
+                </button>
               </li>
             )}
           </ul>

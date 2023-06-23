@@ -1,8 +1,8 @@
 .blogCard{
-    width: 20rem;
-    max-width: 100vw;
-    height: 13rem!important;
     color: #fff!important;
+    .blogCardImg{
+        object-fit: cover;
+    }
    .cardOverlayShadow{
     position: absolute;
     background-color: rgba(0, 0, 0, 0.377);

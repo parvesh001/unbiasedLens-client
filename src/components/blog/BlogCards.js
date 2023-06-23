@@ -42,7 +42,7 @@ export default function BlogCards({ category }) {
         dislikes: post.dislikes.length,
         isLiked: post.likes.includes(authorId),
         isDisliked: post.dislikes.includes(authorId),
-        views: post.views,
+        views: post.views.length,
       };
     });
   };
@@ -119,19 +119,24 @@ export default function BlogCards({ category }) {
 
   let content = posts.map((post) => {
     return (
-      <BlogCard
-        post={post}
-        key={post.id}
-        onLike={likeHandler}
-        onDislike={dislikeHandler}
-        onRemoveLike={removeLikeHandler}
-        onRemoveDislike={removeDislikeHandler}
-      />
+      <div className="col" key={post.id}>
+        <BlogCard
+          post={post}
+          onLike={likeHandler}
+          onDislike={dislikeHandler}
+          onRemoveLike={removeLikeHandler}
+          onRemoveDislike={removeDislikeHandler}
+        />
+      </div>
     );
   });
 
   if (isLoading) return <p> Loading posts....</p>;
   if (error) return <p>{error.message}</p>;
   if (!posts.length) return <p>No post found with this category</p>;
-  return <>{content}</>;
+  return (
+    <div className="container">
+      <div className="row row-cols-1 row-cols-md-3 g-3">{content}</div>
+    </div>
+  );
 }
