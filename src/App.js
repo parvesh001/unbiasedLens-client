@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.scss";
 import Layout from "./components/layout/Layout";
 import CategoryBlogs from "./pages/blog/CategoryBlogs";
@@ -11,6 +11,7 @@ function App() {
           path="/blogs/category/:blogCategory"
           element={<CategoryBlogs />}
         />
+        <Route path="/" element={<Navigate replace to="/blogs/category/technology"/>}/>
       </Routes>
     </Layout>
   );

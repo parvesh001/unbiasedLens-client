@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BlogCard from "./BlogCard";
+import NotFound from "../notFound/NotFound";
+import Loading from "../loadingSpinner/Loading";
 const authorId = "6481b4f2e91479c2af9fc9fe";
 const token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDgxYjRmMmU5MTQ3OWMyYWY5ZmM5ZmUiLCJpYXQiOjE2ODc0MzUwMzMsImV4cCI6MTY4NzUyMTQzM30.DnWjVMKRD6vD9-77_sMNjZm83gAX3gk_-yq0X2XH2dA";
@@ -77,7 +79,7 @@ export default function BlogCards({ category }) {
         throw new Error(errorData.message);
       }
     } catch (err) {
-      console.log(err.message);
+      setError(err.message)
     }
   };
 
@@ -131,9 +133,9 @@ export default function BlogCards({ category }) {
     );
   });
 
-  if (isLoading) return <p> Loading posts....</p>;
+  if (isLoading) return <Loading />;
   if (error) return <p>{error.message}</p>;
-  if (!posts.length) return <p>No post found with this category</p>;
+  if (!posts.length) return <NotFound />;
   return (
     <div className="container">
       <div className="row row-cols-1 row-cols-md-3 g-3">{content}</div>

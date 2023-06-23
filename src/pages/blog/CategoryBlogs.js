@@ -6,8 +6,8 @@ export default function CategoryBlogs() {
   const { blogCategory } = useParams();
   const title = blogCategory.toUpperCase().replace(/-/g, " ").trim();
   return (
-    <div className="my-3 container d-flex flex-column align-items-center">
-      <h2 className="text-primary fs-4 fs-md-2">{title}</h2>
+    <div className="my-3 container">
+      <h2 className="text-primary fs-4 fs-md-2 mb-2 mb-md-4">{title}</h2>
       <BlogCards category={blogCategory} />
     </div>
   );
