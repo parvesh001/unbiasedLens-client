@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { RiMenu4Line } from "react-icons/ri";
 import styles from "./Navbar.module.scss";
 import Alert from "../../UI/Alert";
 
 export default function Navbar() {
-  const loggedIn = true;
+  const loggedIn = false;
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async function () {
@@ -146,7 +147,7 @@ export default function Navbar() {
               )}
               {!loggedIn && (
                 <li className="nav-item">
-                  <button className="btn btn-primary my-3 my-md-0">
+                  <button className="btn btn-primary my-3 my-md-0" onClick={()=>navigate('/author-authentication')}>
                     Register
                   </button>
                 </li>

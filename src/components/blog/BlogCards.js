@@ -138,7 +138,7 @@ export default function BlogCards({ category }) {
   if (!posts.length) return <NotFound />;
   return (
     <div className="container">
-      <div className="row row-cols-1 row-cols-md-3 g-3">{content}</div>
+      <div className="row row-cols-1 row-cols-lg-3 g-3">{content}</div>
     </div>
   );
 }
