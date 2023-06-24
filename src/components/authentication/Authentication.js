@@ -7,10 +7,7 @@ export default function Authentication() {
       <div className={styles.authenticationContainer}>
         <div className={styles.authenticationRightBox}>
           <div className={styles.authenticationImg}>
-            <img
-              src="/img/background.jpg"
-              alt="space background"
-            />
+            <img src="/img/background.jpg" alt="space background" />
           </div>
           <div className={styles.slogan}>
             <h1>Your Voice. Your Story. Write With Unbiased Lens</h1>
@@ -27,7 +24,20 @@ export default function Authentication() {
             </p>
           </div>
         </div>
-        <div className={styles.authenticationLeftBox}></div>
+        <div className={styles.authenticationLeftBox}>
+          <p>
+            loremnnsdjn sdnskjd nksnfenffb  hbfwhebfhwbe whebhfw ehw fwhf webjhfbwejh
+            fwh fwejh fwehjfewhj fwh fwejhff bw nd sn dbn sbd snb dwbe wjhe
+            whewehd webd ned bdwejhdwe bf ewjf wejhfw ejf fds sdnb jhwejwhe wfbw
+            efbw fnw
+            loremnnsdjn sdnskjd nksnfenffb  hbfwhebfhwbe whebhfw ehw fwhf webjhfbwejh
+            fwh fwejh fwehjfewhj fwh fwejhff bw nd sn dbn sbd snb dwbe wjhe
+            whewehd webd ned bdwejhdwe bf ewjf wejhfw ejf fds sdnb jhwejwhe wfbw
+            efbw fnw.
+           
+
+          </p>
+        </div>
       </div>
     </div>
   );
