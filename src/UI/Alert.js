@@ -5,7 +5,7 @@ export default function Alert({ scenario, message }) {
     <>
       {scenario === "success" && (
         <div
-          className="alert alert-success alert-dismissible fade show position-absolute position-absolute top-0 start-50 translate-middle-x mt-5"
+          className="alert alert-success alert-dismissible fade show position-absolute position-absolute top-0 start-50 translate-middle-x mt-5 z-3"
           role="alert"
           style={{ width: "40rem", maxWidth: "96vw" }}
         >
@@ -20,7 +20,7 @@ export default function Alert({ scenario, message }) {
       )}
       {scenario === "error" && (
         <div
-          className="alert alert-danger alert-dismissible fade show position-absolute top-0 start-50 translate-middle-x mt-5"
+          className="alert alert-danger alert-dismissible fade show position-absolute top-0 start-50 translate-middle-x mt-5 z-3"
           role="alert"
           style={{ width: "40rem", maxWidth: "96vw" }}
         >

@@ -15,7 +15,7 @@ export default function BlogCards({ category }) {
     (async function () {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/v1/blog-posts?category=${category}`
+          `http://localhost:808/api/v1/blog-posts?category=${category}`
         );
         if (!response) {
           const errorData = await response.json();
