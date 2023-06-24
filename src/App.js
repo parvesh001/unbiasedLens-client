@@ -11,8 +11,12 @@ function App() {
           path="/blogs/category/:blogCategory"
           element={<CategoryBlogs />}
         />
-        <Route path="/" element={<Navigate replace to="/blogs/category/technology"/>}/>
+        <Route
+          path="/"
+          element={<Navigate replace to="/blogs/category/technology" />}
+        />
       </Routes>
+      
     </Layout>
   );
 }

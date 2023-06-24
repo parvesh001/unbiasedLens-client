@@ -92,6 +92,7 @@ export default function BlogCards({ category }) {
       isDisliked: false,
     });
 
+    
     await updatePostOnServer(id, "like");
   };
 
