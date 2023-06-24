@@ -8,7 +8,7 @@ export default function CategoryBlogs() {
   return (
     <div className="my-3 container">
       <h2 className="text-primary fs-4 fs-md-2 mb-2 mb-md-4">{title}</h2>
-      <BlogCards category={blogCategory} />
+        <BlogCards category={blogCategory} />
     </div>
   );
 }

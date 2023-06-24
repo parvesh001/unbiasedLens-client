@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import BlogCard from "./BlogCard";
 import NotFound from "../notFound/NotFound";
 import Loading from "../loadingSpinner/Loading";
+import Alert from "../../UI/Alert";
 const authorId = "6481b4f2e91479c2af9fc9fe";
 const token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDgxYjRmMmU5MTQ3OWMyYWY5ZmM5ZmUiLCJpYXQiOjE2ODc0MzUwMzMsImV4cCI6MTY4NzUyMTQzM30.DnWjVMKRD6vD9-77_sMNjZm83gAX3gk_-yq0X2XH2dA";
@@ -15,11 +16,10 @@ export default function BlogCards({ category }) {
     (async function () {
       try {
         const response = await fetch(
-          `http://localhost:808/api/v1/blog-posts?category=${category}`
+          `http://localhost:8080/api/v1/blog-posts?category=${category}`
         );
-        if (!response) {
-          const errorData = await response.json();
-          throw new Error(errorData.message);
+        if (!response.ok) {
+          throw new Error("Something went wrong!");
         }
         const data = await response.json();
         const posts = transformPosts(data.data.posts, authorId);
@@ -27,7 +27,7 @@ export default function BlogCards({ category }) {
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
-        setError(err);
+        setError(err.message);
       }
     })();
   }, [setPosts, category]);
@@ -79,7 +79,7 @@ export default function BlogCards({ category }) {
         throw new Error(errorData.message);
       }
     } catch (err) {
-      setError(err.message)
+      setError(err.message);
     }
   };
 
@@ -92,7 +92,6 @@ export default function BlogCards({ category }) {
       isDisliked: false,
     });
 
-    
     await updatePostOnServer(id, "like");
   };
 
@@ -135,7 +134,7 @@ export default function BlogCards({ category }) {
   });
 
   if (isLoading) return <Loading />;
-  if (error) return <p>{error.message}</p>;
+  if (error) return <Alert scenario="error" message={error} />;
   if (!posts.length) return <NotFound />;
   return (
     <div className="container">
