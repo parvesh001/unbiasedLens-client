@@ -1,0 +1,127 @@
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import Input from "../../../UI/Input";
+import useInput from "../../../hooks/useInput";
+import Alert from "../../../UI/Alert";
+import { AuthContext } from "../../../context/authContext";
+
+export default function Login({ onCreatingNewAcc }) {
+  const { login } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [alert, setAlert] = useState(null);
+
+  const {
+    authorInput: authorEmailInput,
+    authorInputIsValid: authorEmailInputIsValid,
+    hasError: authorEmailInputHasError,
+    authorInputChangeHandler: authorEmailInputChangeHandler,
+    authorInputBlurHandler: authorEmailInputBlurHandler,
+  } = useInput((value) =>
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)
+  );
+  const {
+    authorInput: authorPasswordInput,
+    authorInputIsValid: authorPasswordInputIsValid,
+    hasError: authorPasswordInputHasError,
+    authorInputChangeHandler: authorPasswordInputChangeHandler,
+    authorInputBlurHandler: authorPasswordInputBlurHandler,
+  } = useInput((value) => value.trim().length > 6);
+
+  let formIsValid = false;
+  if (authorEmailInputIsValid && authorPasswordInputIsValid) {
+    formIsValid = true;
+  }
+
+  const loginFormSubmitHandler = async (event) => {
+    event.preventDefault();
+
+    if (!formIsValid) return;
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/v1/authors/login`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email: authorEmailInput,
+            password: authorPasswordInput,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+
+      const { token, data } = await response.json();
+      setIsLoading(false);
+      login(data.author, token);
+    } catch (err) {
+      setIsLoading(false);
+      setAlert({ scenario: "error", message: err.message });
+    }
+  };
+
+  const emailInputClass = authorEmailInputHasError ? "is-invalid" : "";
+  const passInputClass = authorPasswordInputHasError ? "is-invalid" : "";
+
+  return (
+    <>
+      {alert && <Alert scenario={alert.scenario} message={alert.message} />}
+
+      <div className="h-100 d-flex flex-column justify-content-center">
+        <div className="mb-2 mb-md-3 mb-lg-4">
+          <h2 className="text-primary text-center fs-4 fs-md-2">
+            WELCOME BACK
+          </h2>
+        </div>
+        <form className="m-b-3" onSubmit={loginFormSubmitHandler}>
+          <Input
+            className={emailInputClass}
+            id="authorEmail"
+            label="Email"
+            placeholder="author@gmail.com"
+            type="email"
+            value={authorEmailInput}
+            onChange={authorEmailInputChangeHandler}
+            onBlur={authorEmailInputBlurHandler}
+            invalidFeedback="Please mention valid email"
+          />
+          <Input
+            className={passInputClass}
+            id="authorPassword"
+            label="Password"
+            placeholder="*********"
+            type="password"
+            value={authorPasswordInput}
+            onChange={authorPasswordInputChangeHandler}
+            onBlur={authorPasswordInputBlurHandler}
+            invalidFeedback="Please mention valid password"
+          />
+          <Link className="mb-3 d-block text-decoration-none">
+            Forget Your Password?
+          </Link>
+          <button
+            className="btn btn-primary"
+            type="submit"
+            disabled={!formIsValid}
+          >
+            {isLoading ? "loading..." : "login"}
+          </button>
+        </form>
+        <div>
+          <button
+            type="button"
+            className="btn btn-transparent mx-auto d-block text-secondary"
+            onClick={onCreatingNewAcc}
+          >
+            Create New Account
+          </button>
+        </div>
+      </div>
+    </>
+  );
+}

@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { RiMenu4Line } from "react-icons/ri";
 import styles from "./Navbar.module.scss";
 import Alert from "../../UI/Alert";
+import { AuthContext } from "../../context/authContext";
 
 export default function Navbar() {
-  const loggedIn = false;
+  const { author, isLogedIn, logout } = useContext(AuthContext);
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
+  const [creating, setCreating] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -112,11 +114,18 @@ export default function Navbar() {
                 <ul className="dropdown-menu top-50">{moreNavLinks}</ul>
               </li>
               <li className="nav-item">
-                <button className="btn btn-primary mx-md-3 mt-3 mt-md-0">
+                <button
+                  className="btn btn-primary mx-md-3 mt-3 mt-md-0"
+                  onClick={
+                    !isLogedIn
+                      ? () => navigate("/author-authentication")
+                      : () => setCreating(true)
+                  }
+                >
                   Create
                 </button>
               </li>
-              {loggedIn && (
+              {isLogedIn && (
                 <li
                   className="nav-item dropdown dropstart mt-3 mt-md-0"
                   style={{ content: "none" }}
@@ -128,7 +137,7 @@ export default function Navbar() {
                     aria-expanded="false"
                   >
                     <div className={styles.profile}>
-                      <img src="/img/user1.jpg" className="w-100" alt="user" />
+                      <img src={author.photo} className="w-100" alt="user" />
                     </div>
                   </div>
                   <ul className="dropdown-menu">
@@ -138,16 +147,19 @@ export default function Navbar() {
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" to="/">
+                      <button className="dropdown-item" onClick={logout}>
                         Logout
-                      </Link>
+                      </button>
                     </li>
                   </ul>
                 </li>
               )}
-              {!loggedIn && (
+              {!isLogedIn && (
                 <li className="nav-item">
-                  <button className="btn btn-primary my-3 my-md-0" onClick={()=>navigate('/author-authentication')}>
+                  <button
+                    className="btn btn-primary my-3 my-md-0"
+                    onClick={() => navigate("/author-authentication")}
+                  >
                     Register
                   </button>
                 </li>

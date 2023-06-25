@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Authentication.module.scss";
+import Login from "./authForms/Login";
+import Registration from "./authForms/Registration";
 
 export default function Authentication() {
+  const [isRegistering, setIsRegistering] = useState(false);
+
   return (
     <div className={styles.authentication}>
       <div className={styles.authenticationContainer}>
         <div className={styles.authenticationRightBox}>
-          <div className={styles.authenticationImg}>
-            <img src="/img/background.jpg" alt="space background" />
-          </div>
           <div className={styles.slogan}>
             <h1>Your Voice. Your Story. Write With Unbiased Lens</h1>
             <p>
@@ -16,27 +17,21 @@ export default function Authentication() {
               insightful articles, thought-provoking opinions, and diverse
               voices. Explore captivating stories that challenge your beliefs,
               broaden your horizons, and spark meaningful conversations.
-              UnbiasedLens is your gateway to a balanced and unbiased view of
-              the world. Embrace the power of knowledge, engage with different
-              perspectives, and unlock the truth. Join our community and embark
-              on a journey of discovery with UnbiasedLens, where unbiased
-              storytelling meets your curious mind.
             </p>
           </div>
         </div>
         <div className={styles.authenticationLeftBox}>
-          <p>
-            loremnnsdjn sdnskjd nksnfenffb  hbfwhebfhwbe whebhfw ehw fwhf webjhfbwejh
-            fwh fwejh fwehjfewhj fwh fwejhff bw nd sn dbn sbd snb dwbe wjhe
-            whewehd webd ned bdwejhdwe bf ewjf wejhfw ejf fds sdnb jhwejwhe wfbw
-            efbw fnw
-            loremnnsdjn sdnskjd nksnfenffb  hbfwhebfhwbe whebhfw ehw fwhf webjhfbwejh
-            fwh fwejh fwehjfewhj fwh fwejhff bw nd sn dbn sbd snb dwbe wjhe
-            whewehd webd ned bdwejhdwe bf ewjf wejhfw ejf fds sdnb jhwejwhe wfbw
-            efbw fnw.
-           
-
-          </p>
+          {isRegistering && (
+            <Registration
+              onLogingWithExistingAcc={() => setIsRegistering(false)}
+            />
+          )}
+          {!isRegistering && (
+            <Login
+              onRegisteringState
+              onCreatingNewAcc={() => setIsRegistering(true)}
+            />
+          )}
         </div>
       </div>
     </div>
