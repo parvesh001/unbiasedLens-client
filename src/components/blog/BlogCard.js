@@ -1,12 +1,8 @@
-import React from "react";
-import {
-  AiOutlineEye,
-  AiFillDislike,
-  AiFillLike,
-  AiOutlineDislike,
-  AiOutlineLike,
-} from "react-icons/ai";
+import React, { useContext } from "react";
+import { AiOutlineEye } from "react-icons/ai";
 import styles from "./BlogCard.module.scss";
+import { AuthContext } from "../../context/authContext";
+import BlogInteractions from "./BlogInteractions";
 
 export default function BlogCard({
   post,
@@ -15,10 +11,16 @@ export default function BlogCard({
   onRemoveLike,
   onRemoveDislike,
 }) {
+  const { isLogedIn } = useContext(AuthContext);
+
   return (
     <div className={`card p-0  ${styles.blogCard}`}>
       <div className={styles.cardOverlayShadow} />
-      <img src={post.image} className={`card-img ${styles.blogCardImg}`} alt="..." />
+      <img
+        src={post.image}
+        className={`card-img ${styles.blogCardImg}`}
+        alt="..."
+      />
       <div className="card-img-overlay">
         <div className="card-subtitle">
           <div className="d-flex gap-2" style={{ cursor: "pointer" }}>
@@ -37,40 +39,15 @@ export default function BlogCard({
         </div>
         <div className="position-absolute bottom-0 d-flex justify-content-between w-75">
           <div className="d-flex gap-4">
-            <div className="d-flex flex-column align-items-center">
-              {!post.isLiked && (
-                <AiOutlineLike
-                  className="fs-4"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => onLike(post.id)}
-                />
-              )}
-              {post.isLiked && (
-                <AiFillLike
-                  className="fs-4 text-danger"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => onRemoveLike(post.id)}
-                />
-              )}
-              <span>{post.likes}</span>
-            </div>
-            <div className="d-flex flex-column align-items-center">
-              {!post.isDisliked && (
-                <AiOutlineDislike
-                  className="fs-4"
-                  onClick={() => onDislike(post.id)}
-                  style={{ cursor: "pointer" }}
-                />
-              )}
-              {post.isDisliked && (
-                <AiFillDislike
-                  className="fs-4 text-primary"
-                  onClick={() => onRemoveDislike(post.id)}
-                  style={{ cursor: "pointer" }}
-                />
-              )}
-              <span>{post.dislikes}</span>
-            </div>
+            {isLogedIn && (
+              <BlogInteractions
+                post={post}
+                onLike={onLike}
+                onDislike={onDislike}
+                onRemoveLike={onRemoveLike}
+                onRemoveDislike={onRemoveDislike}
+              />
+            )}
             <div className="d-flex flex-column align-items-center">
               <AiOutlineEye className="fs-4" />
               <span>{post.views}</span>

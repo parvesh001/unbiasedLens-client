@@ -4,34 +4,32 @@ import NotFound from "../notFound/NotFound";
 import Loading from "../loadingSpinner/Loading";
 import Alert from "../../UI/Alert";
 import { AuthContext } from "../../context/authContext";
-
+import useHttp from "../../hooks/use-http";
 
 export default function BlogCards({ category }) {
-  const {author,token} = useContext(AuthContext)
+  const { sendRequest: fetchBlogs } = useHttp();
+  const { sendRequest: updatePost } = useHttp();
+  const { author, token } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  let authorId = author? author._id : null;
+  const [alert, setAlert] = useState(null);
+  let authorId = author ? author._id : null;
 
   useEffect(() => {
     (async function () {
       try {
-        const response = await fetch(
-          `http://localhost:8080/api/v1/blog-posts?category=${category}`
-        );
-        if (!response.ok) {
-          throw new Error("Something went wrong!");
-        }
-        const data = await response.json();
+        const data = await fetchBlogs({
+          endpoint: `blog-posts?category=${category}`,
+        });
         const posts = transformPosts(data.data.posts, authorId);
         setPosts(posts);
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
-        setError(err.message);
+        setAlert({ scenario: "error", message: err.message });
       }
     })();
-  }, [setPosts, category, authorId]);
+  }, [setPosts, category, authorId, fetchBlogs]);
 
   const transformPosts = (postsData, authorId) => {
     return postsData.map((post) => {
@@ -66,21 +64,15 @@ export default function BlogCards({ category }) {
 
   const updatePostOnServer = async (id, endpoint) => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/v1/blog-posts/post/${id}/${endpoint}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message);
-      }
+      await updatePost({
+        endpoint: `blog-posts/post/${id}/${endpoint}`,
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
     } catch (err) {
-      setError(err.message);
+      setAlert({ scenario: "error", message: err.message });
     }
   };
 
@@ -125,17 +117,24 @@ export default function BlogCards({ category }) {
       <div className="col" key={post.id}>
         <BlogCard
           post={post}
-          onLike={likeHandler}
-          onDislike={dislikeHandler}
-          onRemoveLike={removeLikeHandler}
-          onRemoveDislike={removeDislikeHandler}
+          onLike={() => likeHandler(post.id)}
+          onDislike={() => dislikeHandler(post.id)}
+          onRemoveLike={() => removeLikeHandler(post.id)}
+          onRemoveDislike={() => removeDislikeHandler(post.id)}
         />
       </div>
     );
   });
 
   if (isLoading) return <Loading />;
-  if (error) return <Alert scenario="error" message={error} />;
+  if (alert)
+    return (
+      <Alert
+        scenario={alert.scenario}
+        message={alert.message}
+        dismiss={() => setAlert(null)}
+      />
+    );
   if (!posts.length) return <NotFound />;
   return (
     <div className="container">
