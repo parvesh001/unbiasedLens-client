@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Input from "../../../UI/Input";
 import useInput from "../../../hooks/useInput";
+import { AuthContext } from "../../../context/authContext";
+import Alert from "../../../UI/Alert";
+import useHttp from "../../../hooks/use-http";
 
 export default function Registration({ onLogingWithExistingAcc }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [alert, setAlert] = useState(null);
+  const { login } = useContext(AuthContext);
+  const { sendRequest: sendRegistrationRequest } = useHttp();
+
   const {
     authorInput: authorNameInput,
     authorInputIsValid: authorNameInputIsValid,
@@ -49,8 +57,31 @@ export default function Registration({ onLogingWithExistingAcc }) {
     formIsValid = true;
   }
 
-  const registrationFormSubmitHandler = (event) => {
+  const registrationFormSubmitHandler = async (event) => {
     event.preventDefault();
+    if (!formIsValid) return;
+    setIsLoading(true);
+    try {
+      const data = await sendRegistrationRequest({
+        endpoint: "authors/register",
+        method: "POST",
+        body: {
+          name: authorNameInput,
+          email: authorEmailInput,
+          password: authorPasswordInput,
+          confirmPassword: authorConfirmPasswordInput,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      setIsLoading(false);
+      setAlert({ scenario: "success", message: "Registered successfully" });
+      setTimeout(() => login(data.author, data.token), 1000);
+    } catch (err) {
+      setIsLoading(false);
+      setAlert({ scenario: "error", message: err.message });
+    }
   };
 
   const nameInputClass = authorNameInputHasError ? "is-invalid" : "";
@@ -61,71 +92,84 @@ export default function Registration({ onLogingWithExistingAcc }) {
     : "";
 
   return (
-    <div className="h-100 d-flex flex-column justify-content-center">
-      <div className="mb-2 mb-md-3 mb-lg-4">
-        <h2 className="text-primary text-center fs-4 fs-md-2">
-          WELCOME TO UNBIASED LENS
-        </h2>
-      </div>
-      <form className="m-b-3" onSubmit={registrationFormSubmitHandler}>
-        <Input
-          id="authorName"
-          label="Name"
-          placeholder="Parvesh"
-          type="text"
-          value={authorNameInput}
-          className={nameInputClass}
-          onChange={authorNameInputChangeHandler}
-          onBlur={authorNameInputBlurHandler}
-          invalidFeedback="Please mention valid name"
+    <>
+      {alert && (
+        <Alert
+          scenario={alert.scenario}
+          message={alert.message}
+          dismiss={() => setAlert(null)}
         />
-        <Input
-          id="authorEmail"
-          label="Email"
-          placeholder="author@gmail.com"
-          type="email"
-          value={authorEmailInput}
-          className={emailInputClass}
-          onChange={authorEmailInputChangeHandler}
-          onBlur={authorEmailInputBlurHandler}
-          invalidFeedback="Please mention valid email"
-        />
-        <Input
-          id="authorPassword"
-          label="Password"
-          placeholder="*********"
-          type="password"
-          value={authorPasswordInput}
-          className={passInputClass}
-          onChange={authorPasswordInputChangeHandler}
-          onBlur={authorPasswordInputBlurHandler}
-          invalidFeedback="Password must be six characters long"
-        />
-        <Input
-          id="confirmPassword"
-          label="Confirm Password"
-          placeholder="*********"
-          type="password"
-          value={authorConfirmPasswordInput}
-          className={confirmPassInputClass}
-          onChange={authorConfirmPasswordInputChangeHandler}
-          onBlur={authorConfirmPasswordInputBlurHandler}
-          invalidFeedback="Both the passwords must match"
-        />
+      )}
+      <div className="h-100 d-flex flex-column justify-content-center">
+        <div className="mb-2 mb-md-3 mb-lg-4">
+          <h2 className="text-primary text-center fs-4 fs-md-2">
+            WELCOME TO UNBIASED LENS
+          </h2>
+        </div>
+        <form className="m-b-3" onSubmit={registrationFormSubmitHandler}>
+          <Input
+            id="authorName"
+            label="Name"
+            placeholder="Parvesh"
+            type="text"
+            value={authorNameInput}
+            className={nameInputClass}
+            onChange={authorNameInputChangeHandler}
+            onBlur={authorNameInputBlurHandler}
+            invalidFeedback="Please mention valid name"
+          />
+          <Input
+            id="authorEmail"
+            label="Email"
+            placeholder="author@gmail.com"
+            type="email"
+            value={authorEmailInput}
+            className={emailInputClass}
+            onChange={authorEmailInputChangeHandler}
+            onBlur={authorEmailInputBlurHandler}
+            invalidFeedback="Please mention valid email"
+          />
+          <Input
+            id="authorPassword"
+            label="Password"
+            placeholder="*********"
+            type="password"
+            value={authorPasswordInput}
+            className={passInputClass}
+            onChange={authorPasswordInputChangeHandler}
+            onBlur={authorPasswordInputBlurHandler}
+            invalidFeedback="Password must be six characters long"
+          />
+          <Input
+            id="confirmPassword"
+            label="Confirm Password"
+            placeholder="*********"
+            type="password"
+            value={authorConfirmPasswordInput}
+            className={confirmPassInputClass}
+            onChange={authorConfirmPasswordInputChangeHandler}
+            onBlur={authorConfirmPasswordInputBlurHandler}
+            invalidFeedback="Both the passwords must match"
+          />
 
-        <button className="btn btn-primary" type="submit" disabled={!formIsValid}>
-          Register
-        </button>
-      </form>
-      <div>
-        <button
-          type="button"
-          className="btn btn-transparent mx-auto d-block text-secondary"
-          onClick={onLogingWithExistingAcc}
-        >
-          Login With Existing Account
-        </button>
+          <button
+            className="btn btn-primary"
+            type="submit"
+            disabled={!formIsValid}
+          >
+            {isLoading ? "Registering..." : "Register"}
+          </button>
+        </form>
+        <div>
+          <button
+            type="button"
+            className="btn btn-transparent mx-auto d-block text-secondary"
+            onClick={onLogingWithExistingAcc}
+          >
+            Login With Existing Account
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BlogCard from "./BlogCard";
 import NotFound from "../notFound/NotFound";
 import Loading from "../loadingSpinner/Loading";
 import Alert from "../../UI/Alert";
-const authorId = "6481b4f2e91479c2af9fc9fe";
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDgxYjRmMmU5MTQ3OWMyYWY5ZmM5ZmUiLCJpYXQiOjE2ODc0MzUwMzMsImV4cCI6MTY4NzUyMTQzM30.DnWjVMKRD6vD9-77_sMNjZm83gAX3gk_-yq0X2XH2dA";
+import { AuthContext } from "../../context/authContext";
+
 
 export default function BlogCards({ category }) {
+  const {author,token} = useContext(AuthContext)
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  let authorId = author? author._id : null;
 
   useEffect(() => {
     (async function () {
@@ -30,7 +31,7 @@ export default function BlogCards({ category }) {
         setError(err.message);
       }
     })();
-  }, [setPosts, category]);
+  }, [setPosts, category, authorId]);
 
   const transformPosts = (postsData, authorId) => {
     return postsData.map((post) => {

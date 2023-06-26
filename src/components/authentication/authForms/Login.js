@@ -4,11 +4,13 @@ import Input from "../../../UI/Input";
 import useInput from "../../../hooks/useInput";
 import Alert from "../../../UI/Alert";
 import { AuthContext } from "../../../context/authContext";
+import useHttp from "../../../hooks/use-http";
 
 export default function Login({ onCreatingNewAcc }) {
   const { login } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState(null);
+  const { sendRequest: sendLoginRequest } = useHttp();
 
   const {
     authorInput: authorEmailInput,
@@ -25,7 +27,7 @@ export default function Login({ onCreatingNewAcc }) {
     hasError: authorPasswordInputHasError,
     authorInputChangeHandler: authorPasswordInputChangeHandler,
     authorInputBlurHandler: authorPasswordInputBlurHandler,
-  } = useInput((value) => value.trim().length > 6);
+  } = useInput((value) => value.trim().length > 5);
 
   let formIsValid = false;
   if (authorEmailInputIsValid && authorPasswordInputIsValid) {
@@ -37,28 +39,22 @@ export default function Login({ onCreatingNewAcc }) {
 
     if (!formIsValid) return;
     setIsLoading(true);
-    try {
-      const response = await fetch(
-        `http://localhost:8080/api/v1/authors/login`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: authorEmailInput,
-            password: authorPasswordInput,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message);
-      }
 
-      const { token, data } = await response.json();
+    try {
+      const data = await sendLoginRequest({
+        endpoint: "authors/login",
+        method: "POST",
+        body: {
+          email: authorEmailInput,
+          password: authorPasswordInput,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       setIsLoading(false);
-      login(data.author, token);
+      setAlert({ scenario: "success", message: "login successfully" });
+      setTimeout(() => login(data.data.author, data.token), 1000);
     } catch (err) {
       setIsLoading(false);
       setAlert({ scenario: "error", message: err.message });
@@ -70,7 +66,13 @@ export default function Login({ onCreatingNewAcc }) {
 
   return (
     <>
-      {alert && <Alert scenario={alert.scenario} message={alert.message} />}
+      {alert && (
+        <Alert
+          scenario={alert.scenario}
+          message={alert.message}
+          dismiss={() => setAlert(null)}
+        />
+      )}
 
       <div className="h-100 d-flex flex-column justify-content-center">
         <div className="mb-2 mb-md-3 mb-lg-4">

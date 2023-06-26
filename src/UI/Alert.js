@@ -1,38 +1,22 @@
 import React from "react";
+import ReactDOM from "react-dom";
 
-export default function Alert({ scenario, message }) {
-  return (
-    <>
-      {scenario === "success" && (
-        <div
-          className="alert alert-success alert-dismissible fade show position-absolute position-absolute top-0 start-50 translate-middle-x mt-5 z-3"
-          role="alert"
-          style={{ width: "40rem", maxWidth: "96vw" }}
-        >
-          <strong>Success!</strong> {message}
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-          ></button>
-        </div>
-      )}
-      {scenario === "error" && (
-        <div
-          className="alert alert-danger alert-dismissible fade show position-absolute top-0 start-50 translate-middle-x mt-5 z-3"
-          role="alert"
-          style={{ width: "40rem", maxWidth: "96vw" }}
-        >
-          <strong>Failed!</strong> {message}
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-          ></button>
-        </div>
-      )}
-    </>
+export default function Alert({ scenario, message, dismiss }) {
+  return ReactDOM.createPortal(
+    <div className="position-absolute top-0 start-50 translate-middle-x mt-5 z-3">
+      <div
+        className={`alert alert-${
+          scenario === "error" ? "danger" : "success"
+        } d-flex justify-content-between align-items-center`}
+        role="alert"
+        style={{ width: "40rem", maxWidth: "96vw" }}
+      >
+        <p>
+          <strong className="text-uppercase me-2">{scenario}!</strong> {message}
+        </p>
+        <button type="button" className="btn-close" onClick={dismiss}></button>
+      </div>
+    </div>,
+    document.getElementById("alert-root")
   );
 }
