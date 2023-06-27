@@ -3,6 +3,7 @@ import "./App.scss";
 import Layout from "./components/layout/Layout";
 import CategoryBlogs from "./pages/blog/CategoryBlogs";
 import Authentication from "./components/authentication/Authentication";
+import DetailedBlogPage from "./pages/blog/DetailedBlogPage";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         />
         <Route
           path="/blogs/category/:blogCategory/:blogId"
-          element={<p>This is single post</p>}
+          element={<DetailedBlogPage/>}
         />
         <Route
           path="/"
