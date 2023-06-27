@@ -44,6 +44,7 @@ export default function BlogCards({ category }) {
         isLiked: post.likes.includes(authorId),
         isDisliked: post.dislikes.includes(authorId),
         views: post.views.length,
+        slug:post.slug
       };
     });
   };

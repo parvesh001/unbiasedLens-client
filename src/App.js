@@ -17,6 +17,10 @@ function App() {
           element={<CategoryBlogs />}
         />
         <Route
+          path="/blogs/category/:blogCategory/:blogId"
+          element={<p>This is single post</p>}
+        />
+        <Route
           path="/"
           element={<Navigate replace to="/blogs/category/technology" />}
         />

@@ -3,6 +3,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import styles from "./BlogCard.module.scss";
 import { AuthContext } from "../../context/authContext";
 import BlogInteractions from "./BlogInteractions";
+import { useNavigate } from "react-router-dom";
 
 export default function BlogCard({
   post,
@@ -12,7 +13,7 @@ export default function BlogCard({
   onRemoveDislike,
 }) {
   const { isLogedIn } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   return (
     <div className={`card p-0  ${styles.blogCard}`}>
       <div className={styles.cardOverlayShadow} />
@@ -53,7 +54,13 @@ export default function BlogCard({
               <span>{post.views}</span>
             </div>
           </div>
-          <div className="fs-5" style={{ cursor: "pointer" }}>
+          <div
+            className="fs-5"
+            style={{ cursor: "pointer" }}
+            onClick={() =>
+              navigate(`/blogs/category/${post.slug}/${post.id}`)
+            }
+          >
             <span className="border-bottom">Read</span>
           </div>
         </div>
