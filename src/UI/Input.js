@@ -12,7 +12,7 @@ export default function Input({
   value,
 }) {
   return (
-    <div className="form-floating mb-3">
+    <div className="form-floating mb-3 w-100">
       <input
         type={type}
         className={`form-control ${className}`}
@@ -22,7 +22,7 @@ export default function Input({
         onChange={onChange}
         onBlur={onBlur}
       />
-      <label htmlFor={id} >{label}</label>
+      <label htmlFor={id} className="text-secondary">{label}</label>
       <div className="invalid-feedback">{invalidFeedback}</div>
     </div>
   );

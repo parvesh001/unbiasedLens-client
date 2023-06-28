@@ -1,8 +1,9 @@
 import React from "react";
+import styles from './DetailedBlogBody.module.scss'
 
 export default function DetailedBlogBody() {
   return (
- <div className="p-2 bg-light shadow mt-4 lh-lg fs-5">
+ <section className={styles.detailedBlogBody}>
        <p>
       Traveling is not just a leisure activity; it provides numerous benefits
       and enriches our lives in many ways. Here are some must-known facts about
@@ -48,6 +49,6 @@ export default function DetailedBlogBody() {
       the opportunity to explore new destinations and embark on transformative
       journeys that will enrich your life in ways you never imagined.
     </p>
- </div>
+ </section>
   );
 }

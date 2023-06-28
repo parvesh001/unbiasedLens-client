@@ -1,0 +1,7 @@
+.commentsContainer{
+    height: 60vh;
+    overflow-y: scroll;
+    @media screen and (min-width:'620px'){
+        height: 30vh;
+    }
+}

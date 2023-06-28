@@ -3,10 +3,10 @@ import styles from "./DetailedBlogHeader.module.scss";
 
 export default function DetailedBlogHeader() {
   return (
-    <div className={styles.blogHeaderContainer}>
+    <section className={styles.blogHeaderContainer}>
       <div className="d-flex gap-3 align-items-center">
         <img src="/img/user1.jpg" className={styles.authorImg} alt="author" />
-        <div>
+        <div className={styles.author}>
           <p className={styles.authorName}>Parvesh Verma</p>
           <small>vparves@gmail.com</small>
         </div>
@@ -17,6 +17,6 @@ export default function DetailedBlogHeader() {
           <h5>Why You Should Love JS</h5>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
