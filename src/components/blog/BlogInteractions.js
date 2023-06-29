@@ -5,6 +5,7 @@ import {
   AiOutlineDislike,
   AiOutlineLike,
 } from "react-icons/ai";
+import styles from './BlogInteractions.module.scss'
 
 export default function BlogInteractions({
   post,
@@ -18,14 +19,14 @@ export default function BlogInteractions({
       <div className="d-flex flex-column align-items-center">
         {!post.isLiked && (
           <AiOutlineLike
-            className="fs-4"
+            className={styles.blogInteractionIcon}
             style={{ cursor: "pointer" }}
             onClick={onLike}
           />
         )}
         {post.isLiked && (
           <AiFillLike
-            className="fs-4 text-danger"
+            className={styles.blogInteractionIcon}
             style={{ cursor: "pointer" }}
             onClick={onRemoveLike}
           />
@@ -35,14 +36,14 @@ export default function BlogInteractions({
       <div className="d-flex flex-column align-items-center">
         {!post.isDisliked && (
           <AiOutlineDislike
-            className="fs-4"
+            className={styles.blogInteractionIcon}
             onClick={onDislike}
             style={{ cursor: "pointer" }}
           />
         )}
         {post.isDisliked && (
           <AiFillDislike
-            className="fs-4 text-primary"
+            className={styles.blogInteractionIcon}
             onClick={onRemoveDislike}
             style={{ cursor: "pointer" }}
           />

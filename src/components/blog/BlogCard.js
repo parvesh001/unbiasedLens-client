@@ -22,7 +22,7 @@ export default function BlogCard({
         className={`card-img ${styles.blogCardImg}`}
         alt="..."
       />
-      <div className="card-img-overlay">
+      <div className="card-img-overlay p-1 p-md-3">
         <div className="card-subtitle">
           <div className="d-flex gap-2" style={{ cursor: "pointer" }}>
             <div className={styles.cardUserImg}>
@@ -35,7 +35,7 @@ export default function BlogCard({
             <span className={styles.cardUserName}>{post.author}</span>
           </div>
         </div>
-        <div className="fs-4 text-center mt-2">
+        <div className={`text-center mt-2 ${styles.blogPostTitle}`}>
           <p>{post.title}</p>
         </div>
         <div className="position-absolute bottom-0 d-flex justify-content-between w-75">
@@ -50,18 +50,16 @@ export default function BlogCard({
               />
             )}
             <div className="d-flex flex-column align-items-center">
-              <AiOutlineEye className="fs-4" />
+              <AiOutlineEye className={styles.blogPostViewIcon} />
               <span>{post.views}</span>
             </div>
           </div>
           <div
             className="fs-5"
             style={{ cursor: "pointer" }}
-            onClick={() =>
-              navigate(`/blogs/category/${post.slug}/${post.id}`)
-            }
+            onClick={() => navigate(`/blogs/category/${post.slug}/${post.id}`)}
           >
-            <span className="border-bottom">Read</span>
+            <span className={`border-bottom ${styles.readBtn}`}>Read</span>
           </div>
         </div>
       </div>
