@@ -9,7 +9,7 @@ export default function Navbar() {
   const { author, isLogedIn, logout } = useContext(AuthContext);
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
-  const [creating, setCreating] = useState(false);
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -119,7 +119,7 @@ export default function Navbar() {
                   onClick={
                     !isLogedIn
                       ? () => navigate("/author-authentication")
-                      : () => setCreating(true)
+                      : () => navigate('/blogs/create-blog')
                   }
                 >
                   Create

@@ -7,7 +7,7 @@ export default function DetailedBlogPage() {
   const { blogId } = useParams();
 
   return (
-    <div style={{ minHeight: "80vh" }}>
+    <div style={{ minHeight: "86vh" }}>
       <ErrorBoundary>
         <DetailedBlog blogId={blogId} />
       </ErrorBoundary>
