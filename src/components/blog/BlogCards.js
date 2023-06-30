@@ -92,6 +92,8 @@ export default function BlogCards({ category }) {
   };
 
   const removeLikeHandler = async (id) => {
+    if (!isLogedIn)
+    return setAlert({ scenario: "error", message: "please register first" });
     const post = posts.find((post) => post.id === id);
     updatePostsState(id, { isLiked: false, likes: post.likes - 1 });
 
@@ -99,6 +101,8 @@ export default function BlogCards({ category }) {
   };
 
   const dislikeHandler = async (id) => {
+    if (!isLogedIn)
+    return setAlert({ scenario: "error", message: "please register first" });
     const post = posts.find((post) => post.id === id);
     updatePostsState(id, {
       isDisliked: true,
@@ -110,6 +114,8 @@ export default function BlogCards({ category }) {
   };
 
   const removeDislikeHandler = async (id) => {
+    if (!isLogedIn)
+    return setAlert({ scenario: "error", message: "please register first" });
     const post = posts.find((post) => post.id === id);
     updatePostsState(id, { isDisliked: false, dislikes: post.dislikes - 1 });
     await updatePostOnServer(id, "removeDislike");
