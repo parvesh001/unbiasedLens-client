@@ -17,9 +17,7 @@ class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       // Render an error message or fallback UI
-      return <h1>
-        {this.state.error}
-      </h1>;
+      return <h6 className="text-center mt-2">Something went wrong! Please try again.</h6>;
     }
 
     // Render the children components

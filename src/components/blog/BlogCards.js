@@ -9,7 +9,7 @@ import useHttp from "../../hooks/use-http";
 export default function BlogCards({ category }) {
   const { sendRequest: fetchBlogs } = useHttp();
   const { sendRequest: updatePost } = useHttp();
-  const { author, token } = useContext(AuthContext);
+  const { author, token, isLogedIn } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [alert, setAlert] = useState(null);
@@ -26,7 +26,7 @@ export default function BlogCards({ category }) {
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
-        setAlert({ scenario: "error", message: err.message });
+        throw new Error(err.message);
       }
     })();
   }, [setPosts, category, authorId, fetchBlogs]);
@@ -44,7 +44,7 @@ export default function BlogCards({ category }) {
         isLiked: post.likes.includes(authorId),
         isDisliked: post.dislikes.includes(authorId),
         views: post.views.length,
-        slug:post.slug
+        slug: post.slug,
       };
     });
   };
@@ -78,6 +78,8 @@ export default function BlogCards({ category }) {
   };
 
   const likeHandler = async (id) => {
+    if (!isLogedIn)
+      return setAlert({ scenario: "error", message: "please register first" });
     const post = posts.find((post) => post.id === id);
     updatePostsState(id, {
       likes: post.likes + 1,
@@ -128,18 +130,18 @@ export default function BlogCards({ category }) {
   });
 
   if (isLoading) return <Loading />;
-  if (alert)
-    return (
-      <Alert
+  if (!posts.length) return <NotFound />;
+
+  return (
+    <>
+     { alert && <Alert
         scenario={alert.scenario}
         message={alert.message}
         dismiss={() => setAlert(null)}
-      />
-    );
-  if (!posts.length) return <NotFound />;
-  return (
-    <div className="container">
-      <div className="row row-cols-1 row-cols-lg-3 g-3">{content}</div>
-    </div>
+      />}
+      <div className="container">
+        <div className="row row-cols-1 row-cols-lg-3 g-3">{content}</div>
+      </div>
+    </>
   );
 }

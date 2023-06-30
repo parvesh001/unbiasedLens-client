@@ -3,11 +3,11 @@ import ReactDOM from "react-dom";
 
 export default function Alert({ scenario, message, dismiss }) {
   return ReactDOM.createPortal(
-    <div className="position-absolute top-0 start-50 translate-middle-x mt-5 z-3">
+    <div className="position-fixed top-0 start-50 translate-middle-x mt-5 z-3">
       <div
         className={`alert alert-${
           scenario === "error" ? "danger" : "success"
-        } d-flex justify-content-between align-items-center`}
+        } d-flex justify-content-between align-items-center p-1 p-md-3`}
         role="alert"
         style={{ width: "40rem", maxWidth: "96vw" }}
       >

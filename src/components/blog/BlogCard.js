@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import styles from "./BlogCard.module.scss";
-import { AuthContext } from "../../context/authContext";
+
 import BlogInteractions from "./BlogInteractions";
 import { useNavigate } from "react-router-dom";
 
@@ -12,8 +12,9 @@ export default function BlogCard({
   onRemoveLike,
   onRemoveDislike,
 }) {
-  const { isLogedIn } = useContext(AuthContext);
+
   const navigate = useNavigate();
+
   return (
     <div className={`card p-0  ${styles.blogCard}`}>
       <div className={styles.cardOverlayShadow} />
@@ -40,7 +41,7 @@ export default function BlogCard({
         </div>
         <div className="position-absolute bottom-0 d-flex justify-content-between w-75">
           <div className="d-flex gap-4">
-            {isLogedIn && (
+             
               <BlogInteractions
                 post={post}
                 onLike={onLike}
@@ -48,7 +49,7 @@ export default function BlogCard({
                 onRemoveLike={onRemoveLike}
                 onRemoveDislike={onRemoveDislike}
               />
-            )}
+           
             <div className="d-flex flex-column align-items-center">
               <AiOutlineEye className={styles.blogPostViewIcon} />
               <span>{post.views}</span>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./DetailedBlog.module.scss";
 import DetailedBlogHeader from "./DetailedBlogHeader";
 import DetailedBlogBody from "./DetailedBlogBody";
@@ -6,8 +6,10 @@ import Alert from "../../../UI/Alert";
 import CommentBoard from "../../comments/CommentBoard";
 import Loading from "../../../components/loadingSpinner/Loading";
 import useHttp from "../../../hooks/use-http";
+import { AuthContext } from "../../../context/authContext";
 
 export default function DetailedBlog({ blogId }) {
+  const { isLogedIn, token } = useContext(AuthContext);
   const [blogPost, setBlogPost] = useState({});
   const [comments, setComments] = useState([]);
   const [alert, setAlert] = useState(null);
@@ -15,6 +17,7 @@ export default function DetailedBlog({ blogId }) {
 
   const { sendRequest: fetchBlogPost } = useHttp();
   const { sendRequest: fetchBlogComments } = useHttp();
+  const { sendRequest: createComment } = useHttp();
 
   useEffect(() => {
     const fetchBlogPostWithComments = async () => {
@@ -34,14 +37,39 @@ export default function DetailedBlog({ blogId }) {
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
-        setAlert({ scenario: "error", message: err.message });
+        throw new Error(err.message);
       }
     };
     fetchBlogPostWithComments();
   }, [blogId, fetchBlogComments, fetchBlogPost]);
 
-  if (isLoading) return <Loading />;
+  const commentHandler = async (comment) => {
+    if (!isLogedIn) {
+      return setAlert({ scenario: "error", message: "Please register first" });
+    }
+    const blogPostId = blogPost._id;
+    try {
+      const response = await createComment({
+        endpoint: 'comments',
+        method: "POST",
+        body: { blogPostId, content: comment },
+        headers:{
+          'Content-Type':'application/json',
+          'Authorization': 'Bearer ' + token
+        }
+      });
+      const newComment = response.data.comment;
+      setComments(prevComments => {
+        return [...prevComments, newComment]
+      })
+      setIsLoading(false)
+    } catch (err) {
+      setIsLoading(false)
+      setAlert({ scenario: "error", message: err.message });
+    }
+  };
 
+  if (isLoading) return <Loading />;
 
   return (
     <>
@@ -55,7 +83,7 @@ export default function DetailedBlog({ blogId }) {
       <div className={styles.detailedBlogContainer}>
         <DetailedBlogHeader author={blogPost.author} blogPost={blogPost} />
         <DetailedBlogBody content={blogPost.content} />
-        <CommentBoard comments={comments} />
+        <CommentBoard comments={comments} onComment={commentHandler} />
       </div>
     </>
   );
