@@ -7,7 +7,7 @@ export default function Alert({ scenario, message, dismiss }) {
       <div
         className={`alert alert-${
           scenario === "error" ? "danger" : "success"
-        } d-flex justify-content-between align-items-center p-1 p-md-3`}
+        } d-flex justify-content-between align-items-center p-2 p-md-3`}
         role="alert"
         style={{ width: "40rem", maxWidth: "96vw" }}
       >

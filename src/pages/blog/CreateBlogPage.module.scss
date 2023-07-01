@@ -1,10 +1,20 @@
-.createBlogPage{
-    min-height: 86vh;
-    padding: 1rem;
-    color: #fff;
-    font-weight: 600;
-    .slogan{
-        text-transform: uppercase;
-
+.createBlogPage {
+  padding: 1rem;
+  color: #fff;
+  font-weight: 600;
+  .slogan {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  @media screen and (min-width: "1024px") {
+    padding: 3.5rem 3rem;
+    margin-bottom: 2rem;
+    .slogan {
+      font-size: 2rem;
     }
+    
+  }
 }

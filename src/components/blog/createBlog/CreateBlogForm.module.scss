@@ -1,0 +1,18 @@
+.createBlog{
+  background:#fff;
+  padding: 2rem .5rem;
+  border-radius: 15px;
+  .selectCategory, .selectImage{
+      font-size: 1rem;
+    }
+  
+  @media screen and (min-width:'1024px') {
+  padding: 2rem;
+   .textarea{
+      height: 150px!important;
+   }
+   .selectCategory, .selectImage{
+      font-size: 1.3rem;
+    }
+  }
+}
