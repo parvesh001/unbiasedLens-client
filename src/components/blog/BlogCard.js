@@ -7,13 +7,18 @@ import { useNavigate } from "react-router-dom";
 
 export default function BlogCard({
   post,
+  onRead,
   onLike,
   onDislike,
   onRemoveLike,
   onRemoveDislike,
 }) {
-
   const navigate = useNavigate();
+
+  const readClickHandler = () => {
+    onRead();
+    navigate(`/blogs/category/${post.slug}/${post.id}`);
+  };
 
   return (
     <div className={`card p-0  ${styles.blogCard}`}>
@@ -41,15 +46,14 @@ export default function BlogCard({
         </div>
         <div className="position-absolute bottom-0 d-flex justify-content-between w-75">
           <div className="d-flex gap-4">
-             
-              <BlogInteractions
-                post={post}
-                onLike={onLike}
-                onDislike={onDislike}
-                onRemoveLike={onRemoveLike}
-                onRemoveDislike={onRemoveDislike}
-              />
-           
+            <BlogInteractions
+              post={post}
+              onLike={onLike}
+              onDislike={onDislike}
+              onRemoveLike={onRemoveLike}
+              onRemoveDislike={onRemoveDislike}
+            />
+
             <div className="d-flex flex-column align-items-center">
               <AiOutlineEye className={styles.blogPostViewIcon} />
               <span>{post.views}</span>
@@ -58,7 +62,7 @@ export default function BlogCard({
           <div
             className="fs-5"
             style={{ cursor: "pointer" }}
-            onClick={() => navigate(`/blogs/category/${post.slug}/${post.id}`)}
+            onClick={readClickHandler}
           >
             <span className={`border-bottom ${styles.readBtn}`}>Read</span>
           </div>

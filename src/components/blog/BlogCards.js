@@ -121,6 +121,11 @@ export default function BlogCards({ category }) {
     await updatePostOnServer(id, "removeDislike");
   };
 
+  const readPostHandler = async (id)=>{
+    if(!isLogedIn) return;
+    await updatePostOnServer(id, "view");
+  }
+
   let content = posts.map((post) => {
     return (
       <div className="col" key={post.id}>
@@ -130,6 +135,7 @@ export default function BlogCards({ category }) {
           onDislike={() => dislikeHandler(post.id)}
           onRemoveLike={() => removeLikeHandler(post.id)}
           onRemoveDislike={() => removeDislikeHandler(post.id)}
+          onRead = {()=>readPostHandler(post.id)}
         />
       </div>
     );
