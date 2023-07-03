@@ -20,9 +20,7 @@ export default function CreateBlog() {
       const availableCategories = [...response.categories];
       setCategories(availableCategories);
     })();
-  },[fetchBlogCategories]);
+  }, [fetchBlogCategories]);
 
-  return (
-    <CreateBlogForm blogCategories={blogCategories}/>
-  );
+  return <CreateBlogForm blogCategories={blogCategories} />;
 }

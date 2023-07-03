@@ -44,10 +44,10 @@ export default function Login({ onCreatingNewAcc }) {
       const data = await sendLoginRequest({
         endpoint: "authors/login",
         method: "POST",
-        body: {
+        body: JSON.stringify({
           email: authorEmailInput,
           password: authorPasswordInput,
-        },
+        }),
         headers: {
           "Content-Type": "application/json",
         },

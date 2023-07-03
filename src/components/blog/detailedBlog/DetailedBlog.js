@@ -50,21 +50,21 @@ export default function DetailedBlog({ blogId }) {
     const blogPostId = blogPost._id;
     try {
       const response = await createComment({
-        endpoint: 'comments',
+        endpoint: "comments",
         method: "POST",
-        body: { blogPostId, content: comment },
-        headers:{
-          'Content-Type':'application/json',
-          'Authorization': 'Bearer ' + token
-        }
+        body: JSON.stringify({ blogPostId, content: comment }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
       });
       const newComment = response.data.comment;
-      setComments(prevComments => {
-        return [...prevComments, newComment]
-      })
-      setIsLoading(false)
+      setComments((prevComments) => {
+        return [...prevComments, newComment];
+      });
+      setIsLoading(false);
     } catch (err) {
-      setIsLoading(false)
+      setIsLoading(false);
       setAlert({ scenario: "error", message: err.message });
     }
   };
