@@ -4,6 +4,7 @@ import CategoryBlogs from "./pages/blog/CategoryBlogs";
 import AuthenticationPage from "./pages/authentication/AuthenticationPage";
 import DetailedBlogPage from "./pages/blog/DetailedBlogPage";
 import CreateBlogPage from "./pages/blog/CreateBlogPage";
+import ProfilePage from "./pages/profile/ProfilePage";
 import "./App.scss";
 
 
@@ -23,6 +24,10 @@ function App() {
         <Route
           path="/blogs/create-blog"
           element={<CreateBlogPage/>}
+        />
+        <Route
+          path="/author/:name/:id"
+          element={<ProfilePage/>}
         />
         <Route
           path="/"

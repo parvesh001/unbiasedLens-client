@@ -9,7 +9,7 @@ export default function Navbar() {
   const { author, isLogedIn, logout } = useContext(AuthContext);
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -119,7 +119,7 @@ export default function Navbar() {
                   onClick={
                     !isLogedIn
                       ? () => navigate("/author-authentication")
-                      : () => navigate('/blogs/create-blog')
+                      : () => navigate("/blogs/create-blog")
                   }
                 >
                   Create
@@ -142,12 +142,18 @@ export default function Navbar() {
                   </div>
                   <ul className="dropdown-menu">
                     <li>
-                      <Link className="dropdown-item" to="/">
+                      <Link
+                        className="dropdown-item"
+                        to={`/author/${author.name}/${author._id}`}
+                      >
                         Profile
                       </Link>
                     </li>
                     <li>
-                      <button className="dropdown-item text-secondary" onClick={logout}>
+                      <button
+                        className="dropdown-item text-secondary"
+                        onClick={logout}
+                      >
                         Logout
                       </button>
                     </li>
