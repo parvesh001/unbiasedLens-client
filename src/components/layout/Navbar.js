@@ -147,7 +147,7 @@ export default function Navbar() {
                       </Link>
                     </li>
                     <li>
-                      <button className="dropdown-item" onClick={logout}>
+                      <button className="dropdown-item text-secondary" onClick={logout}>
                         Logout
                       </button>
                     </li>

@@ -129,7 +129,7 @@ export default function CreateBlogForm({ blogCategories }) {
             onChange={authorCategoryInputChangeHandler}
             required
           >
-            <option selected value="">
+            <option value="" defaultValue>
               Select Blog Category
             </option>
             {blogCategories}
