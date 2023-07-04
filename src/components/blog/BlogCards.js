@@ -37,6 +37,7 @@ export default function BlogCards({ category }) {
         id: post._id,
         author: post.author.name,
         authorImg: post.author.photo,
+        authorId:post.author._id,
         title: post.title,
         image: post.image,
         likes: post.likes.length,

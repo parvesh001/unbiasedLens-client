@@ -1,18 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Comment({comment }) {
-  const createdTime = new Date(comment.createdAt).toDateString()
+  const createdTime = new Date(comment.createdAt).toDateString();
+  const navigate = useNavigate();
+  const authorName = comment.author.name;
+  const authorPhoto = comment.author.photo;
+  const authorId = comment.author._id;
+
   return (
     <>
       <div className="mb-2 text-light">
         <img
-          src={comment.author.photo}
+          src={authorPhoto}
           width="40px"
           className="rounded-circle me-2"
-          alt={comment.author.name}
+          alt={authorName}
         />
-        <span className="fw-medium" style={{ cursor: "pointer" }}>
-          {comment.author.name}
+        <span className="fw-medium" style={{ cursor: "pointer" }} onClick={()=>navigate(`/author/${authorName}/${authorId}`)}>
+          {authorName}
         </span>
       </div>
       <div className="ps-5 mt-1 text-light">

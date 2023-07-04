@@ -12,6 +12,7 @@ export default function BlogCard({
   onDislike,
   onRemoveLike,
   onRemoveDislike,
+  current,
 }) {
   const navigate = useNavigate();
 
@@ -28,9 +29,9 @@ export default function BlogCard({
         className={`card-img ${styles.blogCardImg}`}
         alt="..."
       />
-      <div className="card-img-overlay p-1 p-md-3">
+      <div className="card-img-overlay d-grid p-1 p-md-3">
         <div className="card-subtitle">
-          <div className="d-flex gap-2" style={{ cursor: "pointer" }}>
+          <div className="d-flex gap-2" style={{ cursor: "pointer" }} onClick={()=>navigate(`/author/${post.author}/${post.authorId}`)}>
             <div className={styles.cardUserImg}>
               <img
                 src={post.authorImg}
@@ -44,7 +45,7 @@ export default function BlogCard({
         <div className={`text-center mt-2 ${styles.blogPostTitle}`}>
           <p>{post.title}</p>
         </div>
-        <div className="position-absolute bottom-0 d-flex justify-content-between w-75">
+        <div className="align-self-end d-flex justify-content-between">
           <div className="d-flex gap-4">
             <BlogInteractions
               post={post}
@@ -59,12 +60,36 @@ export default function BlogCard({
               <span>{post.views}</span>
             </div>
           </div>
-          <div
-            className="fs-5"
-            style={{ cursor: "pointer" }}
-            onClick={readClickHandler}
-          >
-            <span className={`border-bottom ${styles.readBtn}`}>Read</span>
+          <div className="d-flex gap-2">
+            <div
+              className="fs-6"
+              style={{ cursor: "pointer" }}
+              onClick={readClickHandler}
+            >
+              <span className={`border-bottom ${styles.readBtn}`}>Read</span>
+            </div>
+            {current && (
+              <div
+                className="fs-6"
+                style={{ cursor: "pointer" }}
+                onClick={readClickHandler}
+              >
+                <span className={`border-bottom ${styles.readBtn}`}>
+                  Update
+                </span>
+              </div>
+            )}
+            {current && (
+              <div
+                className="fs-6"
+                style={{ cursor: "pointer" }}
+                onClick={readClickHandler}
+              >
+                <span className={`border-bottom ${styles.readBtn}`}>
+                  Delete
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>
