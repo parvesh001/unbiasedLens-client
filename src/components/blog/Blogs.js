@@ -1,15 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
-import useHttp from "../../../hooks/use-http";
-import { AuthContext } from "../../../context/authContext";
-import Loading from "../../loadingSpinner/Loading";
-import BlogCard from "../BlogCard";
-import useBlogActions from "../../../hooks/useBlogCardActions";
-import styles from "./CategoryBlogs.module.scss";
-import Alert from "../../../UI/Alert";
+import useHttp from "../../hooks/use-http";
+import { AuthContext } from "../../context/authContext";
+import Loading from "../loadingSpinner/Loading";
+import BlogCard from "./BlogCard";
+import useBlogActions from "../../hooks/useBlogCardActions";
+import NotFound from '../notFound/NotFound'
+import styles from "./Blogs.module.scss";
+import Alert from "../../UI/Alert";
 
-export default function CategoryBlogs({ category }) {
+export default function Blogs({ uniqueEndpoint, current }) {
   const { author, isLogedIn, token } = useContext(AuthContext);
-  const [categoryBlogs, setCategoryBlogs] = useState([]);
+  const [blogs, setBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [alert, setAlert] = useState(null);
@@ -28,18 +29,17 @@ export default function CategoryBlogs({ category }) {
   useEffect(() => {
     (async function () {
       try {
-        const data = await fetchBlogs({
-          endpoint: `blog-posts?category=${category}`,
-        });
-        const categoryBlogs = transformPosts(data.data.posts, authorId);
-        setCategoryBlogs(categoryBlogs);
+        const data = await fetchBlogs({ endpoint: uniqueEndpoint });
+        let blogs = data.data.posts ? data.data.posts : data.data.authorPosts;
+        blogs = transformPosts(blogs, authorId);
+        setBlogs(blogs);
         setIsLoading(false);
       } catch (err) {
         setError(err.message);
         setIsLoading(false);
       }
     })();
-  }, [setCategoryBlogs, category, authorId, fetchBlogs]);
+  }, [setBlogs, uniqueEndpoint, authorId, fetchBlogs]);
 
   const transformPosts = (postsData, authorId) => {
     return postsData.map((post) => {
@@ -62,7 +62,7 @@ export default function CategoryBlogs({ category }) {
 
   const categoryBlogLikeHandler = async (id) => {
     try {
-      await likeHandler(id, isLogedIn, categoryBlogs, setCategoryBlogs, token);
+      await likeHandler(id, isLogedIn, blogs, setBlogs, token);
     } catch (err) {
       setAlert({ scenario: "error", message: err.message });
     }
@@ -70,13 +70,7 @@ export default function CategoryBlogs({ category }) {
 
   const categoryBlogRemoveLikeHander = async (id) => {
     try {
-      await removeLikeHandler(
-        id,
-        isLogedIn,
-        categoryBlogs,
-        setCategoryBlogs,
-        token
-      );
+      await removeLikeHandler(id, isLogedIn, blogs, setBlogs, token);
     } catch (err) {
       setAlert({ scenario: "error", message: err.message });
     }
@@ -84,13 +78,7 @@ export default function CategoryBlogs({ category }) {
 
   const categoryBlogDislikeHandler = async (id) => {
     try {
-      await dislikeHandler(
-        id,
-        isLogedIn,
-        categoryBlogs,
-        setCategoryBlogs,
-        token
-      );
+      await dislikeHandler(id, isLogedIn, blogs, setBlogs, token);
     } catch (err) {
       setAlert({ scenario: "error", message: err.message });
     }
@@ -98,13 +86,7 @@ export default function CategoryBlogs({ category }) {
 
   const categoryBlogRemoveDislikeHandler = async (id) => {
     try {
-      await removeDislikeHandler(
-        id,
-        isLogedIn,
-        categoryBlogs,
-        setCategoryBlogs,
-        token
-      );
+      await removeDislikeHandler(id, isLogedIn, blogs, setBlogs, token);
     } catch (err) {
       setAlert({ scenario: "error", message: err.message });
     }
@@ -119,13 +101,15 @@ export default function CategoryBlogs({ category }) {
   };
 
   if (isLoading) return <Loading />;
+  if(!blogs.length) return <NotFound/>
   if (error) return <p>{error}</p>;
 
-  let blogCards = categoryBlogs.map((blog) => {
+  let blogCards = blogs.map((blog) => {
     return (
       <BlogCard
         key={blog.id}
         post={blog}
+        current={current}
         onRead={categoryBlogReadHandler.bind(null, blog.id)}
         onLike={categoryBlogLikeHandler.bind(null, blog.id)}
         onDislike={categoryBlogDislikeHandler.bind(null, blog.id)}
@@ -144,7 +128,7 @@ export default function CategoryBlogs({ category }) {
           dismiss={() => setAlert(null)}
         />
       )}
-      <div className={styles.categoryBlogsContainer}>{blogCards}</div>
+      <div className={styles.blogs}>{blogCards}</div>
     </>
   );
 }
