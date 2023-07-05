@@ -29,7 +29,7 @@ export default function BlogCard({
         className={`card-img ${styles.blogCardImg}`}
         alt="..."
       />
-      <div className="card-img-overlay d-grid p-1 p-md-3">
+      <div className="card-img-overlay d-grid p-2 p-md-3">
         <div className="card-subtitle">
           <div className="d-flex gap-2" style={{ cursor: "pointer" }} onClick={()=>navigate(`/author/${post.author}/${post.authorId}`)}>
             <div className={styles.cardUserImg}>

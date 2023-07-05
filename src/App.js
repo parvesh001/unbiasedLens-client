@@ -1,10 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/layout/Layout";
-import CategoryBlogs from "./pages/blog/CategoryBlogs";
+import CategoryBlogsPage from "./pages/blog/CategoryBlogsPage";
 import AuthenticationPage from "./pages/authentication/AuthenticationPage";
 import DetailedBlogPage from "./pages/blog/DetailedBlogPage";
 import CreateBlogPage from "./pages/blog/CreateBlogPage";
 import ProfilePage from "./pages/profile/ProfilePage";
+import AuthorBlogsPage from './pages/blog/AuthorBlogsPage'
 import "./App.scss";
 
 
@@ -15,7 +16,7 @@ function App() {
         <Route path="/author-authentication" element={<AuthenticationPage />} />
         <Route
           path="/blogs/category/:blogCategory"
-          element={<CategoryBlogs />}
+          element={<CategoryBlogsPage />}
         />
         <Route
           path="/blogs/category/:blogCategory/:blogId"
@@ -28,6 +29,10 @@ function App() {
         <Route
           path="/author/:name/:id"
           element={<ProfilePage/>}
+        />
+        <Route
+          path="/author/:name/:id/blogs"
+          element={<AuthorBlogsPage/>}
         />
         <Route
           path="/"

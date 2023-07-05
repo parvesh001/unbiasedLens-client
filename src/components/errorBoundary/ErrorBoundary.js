@@ -11,6 +11,7 @@ class ErrorBoundary extends Component {
 
   static getDerivedStateFromError(error) {
     // Update state to indicate an error has occurred
+    console.log('error occured')
     return { hasError: true, error: error.message };
   }
 

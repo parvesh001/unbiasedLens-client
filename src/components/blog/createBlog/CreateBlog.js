@@ -6,6 +6,7 @@ import CreateBlogForm from "./CreateBlogForm";
 export default function CreateBlog() {
   const { sendRequest: fetchBlogCategories } = useHttp();
   const [categories, setCategories] = useState([]);
+  const [error, setError] = useState(null);
   const blogCategories = categories.map((category) => {
     return (
       <option key={category._id} value={category.name}>
@@ -16,11 +17,17 @@ export default function CreateBlog() {
 
   useEffect(() => {
     (async function () {
-      const response = await fetchBlogCategories({ endpoint: "category" });
-      const availableCategories = [...response.categories];
-      setCategories(availableCategories);
+      try {
+        const response = await fetchBlogCategories({ endpoint: "category" });
+        const availableCategories = [...response.categories];
+        setCategories(availableCategories);
+      } catch (err) {
+        setError(err.message)
+      }
     })();
   }, [fetchBlogCategories]);
+
+  if(error) return <p>{error}</p>
 
   return <CreateBlogForm blogCategories={blogCategories} />;
 }

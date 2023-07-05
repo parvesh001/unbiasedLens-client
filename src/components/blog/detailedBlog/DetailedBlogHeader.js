@@ -1,10 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./DetailedBlogHeader.module.scss";
 
 export default function DetailedBlogHeader({ author, blogPost }) {
+  const navigate = useNavigate();
   return (
     <section className={styles.blogHeaderContainer}>
-      <div className="d-flex gap-3 align-items-center">
+      <div
+        className="d-flex gap-3 align-items-center"
+        style={{ cursor: "pointer" }}
+        onClick={() => navigate(`/author/${author.name}/${author._id}`)}
+      >
         <img
           src={author.photo}
           className={styles.authorImg}

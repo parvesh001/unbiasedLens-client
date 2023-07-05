@@ -1,0 +1,8 @@
+.authorBlogsContainer{
+    display: grid;
+    row-gap: 1rem;
+    @media screen and(min-width:'1024px') {
+        grid-template-columns: repeat(3,1fr);
+       gap: 2rem;
+    }
+}

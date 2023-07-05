@@ -1,6 +1,7 @@
 import React from "react";
 import { MdAddAPhoto } from "react-icons/md";
 import styles from "./AuthorDetails.module.scss";
+import { useNavigate } from "react-router-dom";
 
 export default function AuthorDetails({
   current,
@@ -9,11 +10,13 @@ export default function AuthorDetails({
   onShowFollowers,
   onShowFollowings,
 }) {
+const navigate = useNavigate()
+
   return (
     <div className={styles.authorDetailsContainer}>
       <div className="d-flex w-100 justify-content-between">
         <div className={styles.authorMetaData}>
-          <div>
+          <div role="button" onClick={()=>navigate(`/author/${author.name}/${author._id}/blogs`)}>
             <h6>{author.posts.length}</h6>
             <span>Posts</span>
           </div>

@@ -5,7 +5,7 @@ import { AuthContext } from "../../../context/authContext";
 import useHttp from "../../../hooks/use-http";
 import AuthorStats from "../AuthorStats";
 import Alert from "../../../UI/Alert";
-import Loading from '../../loadingSpinner/Loading'
+import Loading from "../../loadingSpinner/Loading";
 import styles from "./CurrentAuthorProfile.module.scss";
 
 export default function CurrentAuthorProfile() {
@@ -16,7 +16,8 @@ export default function CurrentAuthorProfile() {
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowings, setShowFollowings] = useState(false);
   const [alert, setAlert] = useState(null);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     (async function () {
@@ -26,18 +27,16 @@ export default function CurrentAuthorProfile() {
           headers: { Authorization: "Bearer " + token },
         });
         setCurrentAuthor(response.data.author);
-        setIsLoading(false)
+        setIsLoading(false);
       } catch (err) {
-        setIsLoading(false)
-        throw new Error(err.message)
+        setIsLoading(false);
+        setError(err.message);
       }
     })();
-  }, [
-   fetchCurrentAuthor,
-   token
-  ]);
+  }, [fetchCurrentAuthor, token]);
 
-   if(isLoading) return <Loading/>
+  if (isLoading) return <Loading />;
+  if (error) return <p>{error}</p>;
 
   return (
     <>
@@ -78,7 +77,7 @@ export default function CurrentAuthorProfile() {
           author={currentAuthor}
           onShowProfileViewers={() => setShowProfileViewers(true)}
           onShowFollowers={() => setShowFollowers(true)}
-          onShowFollowings={()=>setShowFollowings(true)}
+          onShowFollowings={() => setShowFollowings(true)}
         />
         <CurrentAuthorUpdateForm />
       </div>

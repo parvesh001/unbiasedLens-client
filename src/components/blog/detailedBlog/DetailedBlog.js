@@ -14,6 +14,7 @@ export default function DetailedBlog({ blogId }) {
   const [comments, setComments] = useState([]);
   const [alert, setAlert] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const { sendRequest: fetchBlogPost } = useHttp();
   const { sendRequest: fetchBlogComments } = useHttp();
@@ -37,7 +38,7 @@ export default function DetailedBlog({ blogId }) {
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
-        throw new Error(err.message);
+        setError(err.message);
       }
     };
     fetchBlogPostWithComments();
@@ -70,6 +71,7 @@ export default function DetailedBlog({ blogId }) {
   };
 
   if (isLoading) return <Loading />;
+  if (error) return <p>{error}</p>;
 
   return (
     <>

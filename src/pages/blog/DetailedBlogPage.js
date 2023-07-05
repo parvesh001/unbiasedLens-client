@@ -1,6 +1,5 @@
 import React from "react";
 import DetailedBlog from "../../components/blog/detailedBlog/DetailedBlog";
-import ErrorBoundary from "../../components/errorBoundary/ErrorBoundary";
 import { useParams } from "react-router-dom";
 
 export default function DetailedBlogPage() {
@@ -8,9 +7,7 @@ export default function DetailedBlogPage() {
 
   return (
     <div style={{ minHeight: "86vh" }}>
-      <ErrorBoundary>
-        <DetailedBlog blogId={blogId} />
-      </ErrorBoundary>
+      <DetailedBlog blogId={blogId} />
     </div>
   );
 }
