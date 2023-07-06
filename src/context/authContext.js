@@ -7,8 +7,8 @@ export const AuthContext = createContext({
   isLogedIn: false,
   login: (author, token) => {},
   logout: () => {},
+  updateProfile: () => {},
 });
-
 
 const AuthContextProvider = ({ children }) => {
   const initialAuthor = JSON.parse(localStorage.getItem("author"));
@@ -34,12 +34,19 @@ const AuthContextProvider = ({ children }) => {
     navigate("/");
   };
 
+  const updateProfile = (newImageUrl) => {
+    setAuthor((author) => {
+      return { ...author, photo: newImageUrl };
+    });
+  };
+
   const values = {
     author,
     token,
     isLogedIn,
     login,
     logout,
+    updateProfile,
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

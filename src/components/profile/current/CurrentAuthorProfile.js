@@ -10,6 +10,7 @@ import styles from "./CurrentAuthorProfile.module.scss";
 
 export default function CurrentAuthorProfile() {
   const { sendRequest: fetchCurrentAuthor } = useHttp();
+  const { sendRequest: updateAuthor } = useHttp();
   const { token } = useContext(AuthContext);
   const [currentAuthor, setCurrentAuthor] = useState({});
   const [showProfileViewers, setShowProfileViewers] = useState(false);
@@ -17,6 +18,7 @@ export default function CurrentAuthorProfile() {
   const [showFollowings, setShowFollowings] = useState(false);
   const [alert, setAlert] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [updateLoading, setUpdateLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -34,6 +36,31 @@ export default function CurrentAuthorProfile() {
       }
     })();
   }, [fetchCurrentAuthor, token]);
+
+  const authorUpdateHandler = async ({ name, email }) => {
+    setUpdateLoading(true)
+    try {
+      const response = await updateAuthor({
+        endpoint: "authors/updateMe",
+        method:'PATCH',
+        body: JSON.stringify({ name, email }),
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      });
+      const updatedName = response.data.author.name;
+      const updatedEmail = response.data.author.email;
+      setCurrentAuthor((author) => {
+        return { ...author, name: updatedName, email: updatedEmail };
+      });
+      setUpdateLoading(false)
+    } catch (err) {
+      setAlert({scenario:'error', message:err.message})
+      setUpdateLoading(false)
+    }
+    
+  };
 
   if (isLoading) return <Loading />;
   if (error) return <p>{error}</p>;
@@ -71,6 +98,7 @@ export default function CurrentAuthorProfile() {
           onClose={() => setShowFollowings(false)}
         />
       )}
+      {updateLoading && <Loading/>}
       <div className={styles.currentAuthorProfile}>
         <AuthorDetails
           current={true}
@@ -79,7 +107,7 @@ export default function CurrentAuthorProfile() {
           onShowFollowers={() => setShowFollowers(true)}
           onShowFollowings={() => setShowFollowings(true)}
         />
-        <CurrentAuthorUpdateForm />
+        <CurrentAuthorUpdateForm onAuthorUpdate={authorUpdateHandler} />
       </div>
     </>
   );

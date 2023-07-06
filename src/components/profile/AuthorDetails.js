@@ -10,13 +10,18 @@ export default function AuthorDetails({
   onShowFollowers,
   onShowFollowings,
 }) {
-const navigate = useNavigate()
-
+  const navigate = useNavigate();
+  console.log(author)
   return (
     <div className={styles.authorDetailsContainer}>
-      <div className="d-flex w-100 justify-content-between">
+      <div className="d-flex flex-column flex-lg-row w-100 justify-content-between">
         <div className={styles.authorMetaData}>
-          <div role="button" onClick={()=>navigate(`/author/${author.name}/${author._id}/blogs`)}>
+          <div
+            role="button"
+            onClick={() =>
+              navigate(`/author/${author.name}/${author._id}/blogs`)
+            }
+          >
             <h6>{author.posts.length}</h6>
             <span>Posts</span>
           </div>
@@ -46,10 +51,12 @@ const navigate = useNavigate()
           </div>
           {current && (
             <div>
-              <label htmlFor="upload-photo">
-                <MdAddAPhoto className={styles.addPhotoIcon} />
-              </label>
-              <input type="file" id="upload-photo" hidden />
+              <MdAddAPhoto
+                className={styles.addPhotoIcon}
+                onClick={()=>navigate(
+                  `/author/${author.name}/${author._id}/upload-profile`
+                )}
+              />
             </div>
           )}
         </div>

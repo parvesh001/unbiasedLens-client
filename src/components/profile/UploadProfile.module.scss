@@ -1,0 +1,58 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    color: #fff;
+    padding: 2.5rem 0;
+    @media screen and(min-width:'1024px') {
+        min-height: 86vh;
+    }
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    max-width: 96vw;
+  }
+  
+  .upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px dashed #aaa;
+    padding: 20px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .upload-label span {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  #fileInput {
+    display: none;
+  }
+  
+  .preview-container {
+    text-align: center;
+  }
+  
+  h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .preview-image {
+    max-width: 300px;
+    max-height: 300px;
+  }
+  

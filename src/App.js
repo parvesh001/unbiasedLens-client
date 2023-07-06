@@ -5,9 +5,9 @@ import AuthenticationPage from "./pages/authentication/AuthenticationPage";
 import DetailedBlogPage from "./pages/blog/DetailedBlogPage";
 import CreateBlogPage from "./pages/blog/CreateBlogPage";
 import ProfilePage from "./pages/profile/ProfilePage";
-import AuthorBlogsPage from './pages/blog/AuthorBlogsPage'
+import AuthorBlogsPage from "./pages/blog/AuthorBlogsPage";
+import UploadProfilePage from "./pages/profile/UploadProfilePage";
 import "./App.scss";
-
 
 function App() {
   return (
@@ -22,18 +22,10 @@ function App() {
           path="/blogs/category/:blogCategory/:blogId"
           element={<DetailedBlogPage />}
         />
-        <Route
-          path="/blogs/create-blog"
-          element={<CreateBlogPage/>}
-        />
-        <Route
-          path="/author/:name/:id"
-          element={<ProfilePage/>}
-        />
-        <Route
-          path="/author/:name/:id/blogs"
-          element={<AuthorBlogsPage/>}
-        />
+        <Route path="/blogs/create-blog" element={<CreateBlogPage />} />
+        <Route path="/author/:name/:id" element={<ProfilePage />} />
+        <Route path="/author/:name/:id/blogs" element={<AuthorBlogsPage />} />
+        <Route path="/author/:name/:id/upload-profile" element={<UploadProfilePage/>} />
         <Route
           path="/"
           element={<Navigate replace to="/blogs/category/technology" />}
