@@ -1,12 +1,19 @@
 import React from "react";
 import ModalScrollable from "../../UI/ModalScrollable";
-import AuthorListItem from "./AuthorListItem";
+import Author from "../author/Author";
 
 export default function AuthorStats({ title, data, emptyMessage, onClose }) {
   let body;
   if (data.length) {
     body = data.map((d) => (
-      <AuthorListItem key={d._id} id={d._id} name={d.name} photo={d.photo} />
+      <Author
+        key={d._id}
+        id={d._id}
+        name={d.name}
+        photo={d.photo}
+        email={d.email}
+        className="mb-2"
+      />
     ));
   } else {
     body = (

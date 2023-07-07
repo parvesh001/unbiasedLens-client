@@ -4,6 +4,7 @@ import styles from "./BlogCard.module.scss";
 
 import BlogInteractions from "./BlogInteractions";
 import { useNavigate } from "react-router-dom";
+import Author from "../author/Author";
 
 export default function BlogCard({
   post,
@@ -31,16 +32,12 @@ export default function BlogCard({
       />
       <div className="card-img-overlay d-grid p-2 p-md-3">
         <div className="card-subtitle">
-          <div className="d-flex gap-2" style={{ cursor: "pointer" }} onClick={()=>navigate(`/author/${post.author}/${post.authorId}`)}>
-            <div className={styles.cardUserImg}>
-              <img
-                src={post.authorImg}
-                className="w-100 rounded-circle"
-                alt="author"
-              />
-            </div>
-            <span className={styles.cardUserName}>{post.author}</span>
-          </div>
+          <Author
+            id={post.authorId}
+            name={post.author}
+            email={post.authorEmail}
+            photo={post.authorImg}
+          />
         </div>
         <div className={`text-center mt-2 ${styles.blogPostTitle}`}>
           <p>{post.title}</p>

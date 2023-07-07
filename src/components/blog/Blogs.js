@@ -48,6 +48,7 @@ export default function Blogs({ uniqueEndpoint, current }) {
         author: post.author.name,
         authorImg: post.author.photo,
         authorId: post.author._id,
+        authorEmail:post.author.email,
         title: post.title,
         image: post.image,
         likes: post.likes.length,
