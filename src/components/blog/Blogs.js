@@ -60,7 +60,7 @@ export default function Blogs({ uniqueEndpoint, current }) {
     });
   };
 
-  const categoryBlogLikeHandler = async (id) => {
+  const blogLikeHandler = async (id) => {
     try {
       await likeHandler(id, isLogedIn, blogs, setBlogs, token);
     } catch (err) {
@@ -68,7 +68,7 @@ export default function Blogs({ uniqueEndpoint, current }) {
     }
   };
 
-  const categoryBlogRemoveLikeHander = async (id) => {
+  const blogRemoveLikeHander = async (id) => {
     try {
       await removeLikeHandler(id, isLogedIn, blogs, setBlogs, token);
     } catch (err) {
@@ -76,7 +76,7 @@ export default function Blogs({ uniqueEndpoint, current }) {
     }
   };
 
-  const categoryBlogDislikeHandler = async (id) => {
+  const blogDislikeHandler = async (id) => {
     try {
       await dislikeHandler(id, isLogedIn, blogs, setBlogs, token);
     } catch (err) {
@@ -84,7 +84,7 @@ export default function Blogs({ uniqueEndpoint, current }) {
     }
   };
 
-  const categoryBlogRemoveDislikeHandler = async (id) => {
+  const blogRemoveDislikeHandler = async (id) => {
     try {
       await removeDislikeHandler(id, isLogedIn, blogs, setBlogs, token);
     } catch (err) {
@@ -92,13 +92,14 @@ export default function Blogs({ uniqueEndpoint, current }) {
     }
   };
 
-  const categoryBlogReadHandler = async (id) => {
+  const blogReadHandler = async (id) => {
     try {
       await readPostHandler(id, isLogedIn, token);
     } catch (err) {
       setAlert({ scenario: "error", message: err.message });
     }
   };
+
 
   if (isLoading) return <Loading />;
   if(!blogs.length) return <NotFound/>
@@ -110,11 +111,11 @@ export default function Blogs({ uniqueEndpoint, current }) {
         key={blog.id}
         post={blog}
         current={current}
-        onRead={categoryBlogReadHandler.bind(null, blog.id)}
-        onLike={categoryBlogLikeHandler.bind(null, blog.id)}
-        onDislike={categoryBlogDislikeHandler.bind(null, blog.id)}
-        onRemoveDislike={categoryBlogRemoveDislikeHandler.bind(null, blog.id)}
-        onRemoveLike={categoryBlogRemoveLikeHander.bind(null, blog.id)}
+        onRead={blogReadHandler.bind(null, blog.id)}
+        onLike={blogLikeHandler.bind(null, blog.id)}
+        onDislike={blogDislikeHandler.bind(null, blog.id)}
+        onRemoveDislike={blogRemoveDislikeHandler.bind(null, blog.id)}
+        onRemoveLike={blogRemoveLikeHander.bind(null, blog.id)}
       />
     );
   });

@@ -11,7 +11,6 @@ export default function AuthorDetails({
   onShowFollowings,
 }) {
   const navigate = useNavigate();
-  console.log(author)
   return (
     <div className={styles.authorDetailsContainer}>
       <div className="d-flex flex-column flex-lg-row w-100 justify-content-between">
