@@ -4,6 +4,7 @@ import { RiMenu4Line } from "react-icons/ri";
 import styles from "./Navbar.module.scss";
 import Alert from "../../UI/Alert";
 import { AuthContext } from "../../context/authContext";
+import AdminPortalLinks from "../admin/AdminPortalLinks";
 
 export default function Navbar() {
   const { author, isLogedIn, logout } = useContext(AuthContext);
@@ -113,9 +114,10 @@ export default function Navbar() {
                 </div>
                 <ul className="dropdown-menu top-50">{moreNavLinks}</ul>
               </li>
+              {author && author.role === "admin" && <AdminPortalLinks />}
               <li className="nav-item">
                 <button
-                  className="btn btn-primary mx-md-3 mt-3 mt-md-0"
+                  className="btn btn-primary mx-md-2 mt-3 mt-md-0"
                   onClick={
                     !isLogedIn
                       ? () => navigate("/author-authentication")
