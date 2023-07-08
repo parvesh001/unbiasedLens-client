@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 
 export default function AuthorDetails({
   current,
+  alreadyFollowed,
   author,
+  onFollow,
+  onUnfollow,
   onShowProfileViewers,
   onShowFollowers,
   onShowFollowings,
@@ -52,21 +55,28 @@ export default function AuthorDetails({
             <div>
               <MdAddAPhoto
                 className={styles.addPhotoIcon}
-                onClick={()=>navigate(
-                  `/author/${author.name}/${author._id}/upload-profile`
-                )}
+                onClick={() =>
+                  navigate(
+                    `/author/${author.name}/${author._id}/upload-profile`
+                  )
+                }
               />
             </div>
           )}
         </div>
         <div>
-          {current && (
+          {current ? (
             <button className="btn btn-primary" onClick={onShowProfileViewers}>
               See Profile Viewers
             </button>
-          )}
-          {!current && (
-            <button className="btn  btn-outline-primary">Follow</button>
+          ) : alreadyFollowed ? (
+            <button className="btn  btn-outline-primary" onClick={onUnfollow}>
+              Unfollow
+            </button>
+          ) : (
+            <button className="btn  btn-outline-primary" onClick={onFollow}>
+              Follow
+            </button>
           )}
         </div>
       </div>

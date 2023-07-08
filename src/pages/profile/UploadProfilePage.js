@@ -11,7 +11,12 @@ export default function UploadProfilePage() {
     author && author._id === id ? (
       <UploadProfile />
     ) : (
-      <p className="text-light text-center fs-4 my-5" style={{minHeight:'86vh'}}>This route is author specific route, please go back</p>
+      <p
+        className="text-light text-center fs-4 my-5"
+        style={{ minHeight: "86vh" }}
+      >
+        This route is author specific route, please go back
+      </p>
     );
 
   return content;
