@@ -10,6 +10,8 @@ import UploadProfilePage from "./pages/profile/UploadProfilePage";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext";
 import AdminAuthorsPortalPage from "./pages/admin/AdminAuthorsPortalPage";
+import AdminCatrgoriesPortalPage from "./pages/admin/AdminCatrgoriesPortalPage";
+import AdminAddCategoryPortalPage from "./pages/admin/AdminAddCategoryPortalPage";
 
 function App() {
   const { author } = useContext(AuthContext);
@@ -45,19 +47,19 @@ function App() {
         {author && author.role === "admin" && (
           <Route
             path="/admin-portal/authors"
-            element={<AdminAuthorsPortalPage/>}
+            element={<AdminAuthorsPortalPage />}
           />
         )}
         {author && author.role === "admin" && (
           <Route
             path="/admin-portal/categories"
-            element={<p>This is admin portal</p>}
+            element={<AdminCatrgoriesPortalPage />}
           />
         )}
         {author && author.role === "admin" && (
           <Route
             path="/admin-portal/add-category"
-            element={<p>This is admin portal</p>}
+            element={<AdminAddCategoryPortalPage />}
           />
         )}
       </Routes>

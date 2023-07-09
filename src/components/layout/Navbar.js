@@ -1,33 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { RiMenu4Line } from "react-icons/ri";
 import styles from "./Navbar.module.scss";
 import Alert from "../../UI/Alert";
 import { AuthContext } from "../../context/authContext";
 import AdminPortalLinks from "../admin/AdminPortalLinks";
+import { CategoryContext } from "../../context/categoryContext";
 
 export default function Navbar() {
   const { author, isLogedIn, logout } = useContext(AuthContext);
-  const [categories, setCategories] = useState([]);
-  const [error, setError] = useState(null);
-
+  const { categories, error, setError } = useContext(CategoryContext);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    (async function () {
-      try {
-        const response = await fetch("http://localhost:8080/api/v1/category");
-        if (!response.ok) {
-          const errData = await response.json();
-          throw new Error(errData.message);
-        }
-        const data = await response.json();
-        setCategories(data.categories);
-      } catch (err) {
-        setError({ scenario: "error", message: err.message });
-      }
-    })();
-  }, []);
 
   const showedCategories = [];
   const moreCategories = [];
@@ -76,7 +59,7 @@ export default function Navbar() {
 
   return (
     <>
-      {error && <Alert scenario={error.scenario} message={error.message} />}
+      {error && <Alert scenario={error.scenario} message={error.message} dismiss={setError}/>}
       <nav className="navbar navbar-expand-md bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import styles from "./CategoryBlogsPage.module.scss";
 import Blogs from "../../components/blog/Blogs";
 
+
 export default function CategoryBlogsPage() {
   const { blogCategory } = useParams();
   const title = blogCategory.toUpperCase().replace(/-/g, " ").trim();

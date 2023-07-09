@@ -91,7 +91,7 @@ export default function OtherAuthorProfile({ id }) {
   };
 
   if (isLoading) return <Loading />;
-  if (error) return <p>{error}</p>;
+  if (error) return <p className="text-light fs-4">{error}</p>;
 
   return (
     <>

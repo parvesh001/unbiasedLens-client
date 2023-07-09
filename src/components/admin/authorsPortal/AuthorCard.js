@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./AuthorCard.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const AuthorCard = ({ author, isBlocked, onToggleBlock }) => {
-  const { name, email, photo } = author;
+  const { name, email, photo, _id } = author;
+  const navigate = useNavigate()
 
   const handleToggleBlock = () => {
     onToggleBlock(author.id);
@@ -10,7 +12,7 @@ const AuthorCard = ({ author, isBlocked, onToggleBlock }) => {
 
   return (
     <div className={styles.authorCard}>
-      <div className={styles.authorInfo}>
+      <div className={styles.authorInfo} onClick={()=>navigate(`/author/${name}/${_id}`)}>
         <div className={styles.authorPhoto}>
           <img src={photo} alt={name} />
         </div>

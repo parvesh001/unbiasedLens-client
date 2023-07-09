@@ -1,0 +1,11 @@
+.addCategoryPortal{
+    background:#fff;
+    padding: 1rem;
+    border-radius: 15px;;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.53);
+    margin-inline:auto;
+    width: 100%;
+    @media screen and(min-width:'1024px'){
+        padding: 3rem 2rem;
+    }
+}

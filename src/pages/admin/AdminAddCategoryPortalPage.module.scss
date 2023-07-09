@@ -1,0 +1,15 @@
+.addCategoryPortalPage{
+    padding-block: 2rem;
+    padding-inline:.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h2{
+        color:#fff;
+        text-transform: uppercase;
+    }
+    @media screen and(min-width:'1024px'){
+        padding: 3rem 8rem;
+        height: 86vh;
+    }
+}
