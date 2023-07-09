@@ -1,8 +1,13 @@
 .blogs{
     display: grid;
     row-gap: 1rem;
-    @media screen and(min-width:'1024px') {
-        grid-template-columns: repeat(3,1fr);
-       gap: 2rem;
+    @media screen and(min-width:'960px'){
+        grid-template-columns: repeat(2,1fr);
+        gap: 1rem;
+    }
+    @media screen and(min-width:'1454px') {
+        grid-template-columns: repeat(3, minmax(200px, 400px));
+        margin:0 auto;
+        justify-content: center;
     }
 }

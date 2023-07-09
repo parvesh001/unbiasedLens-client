@@ -60,7 +60,7 @@ export default function Navbar() {
   return (
     <>
       {error && <Alert scenario={error.scenario} message={error.message} dismiss={setError}/>}
-      <nav className="navbar navbar-expand-md bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
             <img

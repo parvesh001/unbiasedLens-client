@@ -19,10 +19,9 @@ export default function OtherAuthorProfile({ id }) {
   const { sendRequest: unfollowOtherAuthor } = useHttp();
   const { token, isLogedIn, author } = useContext(AuthContext);
 
-  const alreadyFollowed =
-    author &&
-    otherAuthor &&
-    otherAuthor.followers.find((follower) => follower._id === author._id);
+  const alreadyFollowed = otherAuthor?.followers?.find(
+    (follower) => follower._id === author?._id
+  );
 
   useEffect(() => {
     (async function () {

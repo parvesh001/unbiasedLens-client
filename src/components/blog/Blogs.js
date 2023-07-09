@@ -4,9 +4,10 @@ import { AuthContext } from "../../context/authContext";
 import Loading from "../loadingSpinner/Loading";
 import BlogCard from "./BlogCard";
 import useBlogActions from "../../hooks/useBlogCardActions";
-import NotFound from '../notFound/NotFound'
+import NotFound from "../notFound/NotFound";
 import styles from "./Blogs.module.scss";
 import Alert from "../../UI/Alert";
+import Pagination from "../pagination/Pagination";
 
 export default function Blogs({ uniqueEndpoint, current }) {
   const { author, isLogedIn, token } = useContext(AuthContext);
@@ -48,7 +49,7 @@ export default function Blogs({ uniqueEndpoint, current }) {
         author: post.author.name,
         authorImg: post.author.photo,
         authorId: post.author._id,
-        authorEmail:post.author.email,
+        authorEmail: post.author.email,
         title: post.title,
         image: post.image,
         likes: post.likes.length,
@@ -101,9 +102,8 @@ export default function Blogs({ uniqueEndpoint, current }) {
     }
   };
 
-
   if (isLoading) return <Loading />;
-  if(!blogs.length) return <NotFound/>
+  if (!blogs.length) return <NotFound />;
   if (error) return <p>{error}</p>;
 
   let blogCards = blogs.map((blog) => {
@@ -130,7 +130,10 @@ export default function Blogs({ uniqueEndpoint, current }) {
           dismiss={() => setAlert(null)}
         />
       )}
-      <div className={styles.blogs}>{blogCards}</div>
+      <div className={styles.blogsContainer}>
+        <div className={styles.blogs}>{blogCards}</div>
+        <Pagination currentPage={1} totalPages={5} />
+      </div>
     </>
   );
 }
