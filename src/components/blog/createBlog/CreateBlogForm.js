@@ -21,7 +21,7 @@ export default function CreateBlogForm({ blogCategories }) {
     authorInputBlurHandler: authorTitleInputBlurHandler,
     authorInputChangeHandler: authorTitleInputChangeHandler,
     hasError: authorTitleInputHasError,
-  } = useInput((value) => value.trim().length > 26 && value.trim().length < 40);
+  } = useInput((value) => value.trim().length > 26 && value.trim().length < 60);
   const {
     authorInput: authorCategoryInput,
     authorInputIsValid: authorCategoryInputIsValid,
@@ -114,7 +114,7 @@ export default function CreateBlogForm({ blogCategories }) {
           value={authorTitleInput}
           onBlur={authorTitleInputBlurHandler}
           onChange={authorTitleInputChangeHandler}
-          invalidFeedback="Title must be more than 26 characters and less than 40 charachters"
+          invalidFeedback="Title must be more than 26 characters and less than 60 charachters"
         />
         <div className="mb-3 text-secondary">
           <label htmlFor="validationServer04" className="form-label">

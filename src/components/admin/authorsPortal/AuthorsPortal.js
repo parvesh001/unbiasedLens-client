@@ -4,6 +4,8 @@ import { AuthContext } from "../../../context/authContext";
 import Loading from "../../loadingSpinner/Loading";
 import AuthorCard from "./AuthorCard";
 import Alert from "../../../UI/Alert";
+import Pagination from "../../pagination/Pagination";
+import styles from "./AuthorsPortal.module.scss";
 
 export default function AuthorsPortal() {
   const [authors, setAuthors] = useState([]);
@@ -13,22 +15,27 @@ export default function AuthorsPortal() {
   const { token } = useContext(AuthContext);
   const { sendRequest: fetchAuthors } = useHttp();
   const { sendRequest: blockUnblockAuthor } = useHttp();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const docsLimit = 4;
 
   useEffect(() => {
     (async function () {
       try {
         const response = await fetchAuthors({
-          endpoint: "authors",
+          endpoint: `authors?page=${currentPage}&limit=${docsLimit}`,
           headers: { Authorization: "Bearer " + token },
         });
-        setAuthors(response.data.authors);
+        const { authors, totalDocs } = response.data;
+        setAuthors(authors);
+        setTotalPages(Math.ceil(totalDocs / docsLimit));
         setIsLoading(false);
       } catch (err) {
         setError(err.message);
         setIsLoading(false);
       }
     })();
-  }, [fetchAuthors, token]);
+  }, [fetchAuthors, token, currentPage, docsLimit]);
 
   const authorBlockToggleHandler = async (id) => {
     const author = authors.filter((author) => author._id === id);
@@ -60,13 +67,7 @@ export default function AuthorsPortal() {
 
   if (isLoading) return <Loading />;
   if (error)
-    return (
-      <h4
-        className="fs-4 text-center mt-5 text-light"
-      >
-        {error}
-      </h4>
-    );
+    return <h4 className="fs-4 text-center mt-5 text-light">{error}</h4>;
 
   let content = authors.map((author) => {
     return (
@@ -81,12 +82,21 @@ export default function AuthorsPortal() {
 
   return (
     <>
-      {alert && <Alert scenario={alert.scenario} message={alert.message} dismiss={()=>setAlert(null)}/>}
-      <div className="py-3 px-1 py-md-5 px-md-3">
-        <h4 className="text-light text-uppercase mb-2 mb-3">
-          Available Authors
-        </h4>
-        {content}
+      {alert && (
+        <Alert
+          scenario={alert.scenario}
+          message={alert.message}
+          dismiss={() => setAlert(null)}
+        />
+      )}
+      <div className={styles.authorsPortal}>
+        <h4 className={styles.portalTitle}>Available Authors</h4>
+        <div className={styles.authorCards}>{content}</div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
       </div>
     </>
   );

@@ -1,7 +1,4 @@
 .authorCard {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 1rem;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -10,6 +7,7 @@
     width: 45rem;
     max-width: 96vw;
     margin-inline: auto;
+   
   }
   
   .authorInfo {
@@ -44,9 +42,21 @@
     color: #fff;
     background-color: #007bff;
     cursor: pointer;
+    display:block;
+    margin: 0 auto;
   }
   
   .blockButton.blocked {
     background-color: #dc3545;
   }
   
+  @media screen and (min-width:'620px') {
+    .authorCard{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .blockButton{
+        margin: 0;
+      }
+    }
+  }

@@ -1,0 +1,17 @@
+.authorsPortal{
+    padding: 2.5rem .5rem;
+    .portalTitle{
+        color:#fff;
+        font-weight: 600;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+    }
+    .authorCards{
+        margin-bottom: 2rem;
+    }
+}
+@media screen and(min-width:'1024px') {
+    .authorsPortal{
+        padding: 2rem 5rem;
+    }
+}

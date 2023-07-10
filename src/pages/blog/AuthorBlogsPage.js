@@ -7,8 +7,8 @@ import { AuthContext } from '../../context/authContext';
 export default function AuthorBlogsPage() {
     const {author} = useContext(AuthContext)
     const {id, name} = useParams()
-    let endpoint = `authors/author/${id}/posts`
-    let current = author && author._id === id
+    let endpoint = `authors/author/${id}/posts?`
+    let current = author?._id === id
     
   return (
     <div className={styles.authorBlogPage}>

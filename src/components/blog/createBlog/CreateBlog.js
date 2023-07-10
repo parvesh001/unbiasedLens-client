@@ -18,8 +18,8 @@ export default function CreateBlog() {
   useEffect(() => {
     (async function () {
       try {
-        const response = await fetchBlogCategories({ endpoint: "category" });
-        const availableCategories = [...response.categories];
+        const response = await fetchBlogCategories({ endpoint: 'category' });
+        const availableCategories = [...response.data.categories];
         setCategories(availableCategories);
       } catch (err) {
         setError(err.message)

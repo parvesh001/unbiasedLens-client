@@ -15,6 +15,9 @@ export default function Blogs({ uniqueEndpoint, current }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [alert, setAlert] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const docsLimit = 6;
 
   const { sendRequest: fetchBlogs } = useHttp();
   const {
@@ -30,17 +33,20 @@ export default function Blogs({ uniqueEndpoint, current }) {
   useEffect(() => {
     (async function () {
       try {
-        const data = await fetchBlogs({ endpoint: uniqueEndpoint });
-        let blogs = data.data.posts ? data.data.posts : data.data.authorPosts;
-        blogs = transformPosts(blogs, authorId);
-        setBlogs(blogs);
+        const data = await fetchBlogs({
+          endpoint: `${uniqueEndpoint}&page=${currentPage}&limit=${docsLimit}`,
+        });
+        let {posts, totalDocs} = data.data
+        let transformedPosts = transformPosts(posts, authorId);
+        setBlogs(transformedPosts);
+        setTotalPages(Math.ceil(totalDocs / docsLimit));
         setIsLoading(false);
       } catch (err) {
         setError(err.message);
         setIsLoading(false);
       }
     })();
-  }, [setBlogs, uniqueEndpoint, authorId, fetchBlogs]);
+  }, [setBlogs, uniqueEndpoint, authorId, fetchBlogs, currentPage]);
 
   const transformPosts = (postsData, authorId) => {
     return postsData.map((post) => {
@@ -132,7 +138,11 @@ export default function Blogs({ uniqueEndpoint, current }) {
       )}
       <div className={styles.blogsContainer}>
         <div className={styles.blogs}>{blogCards}</div>
-        <Pagination currentPage={1} totalPages={5} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
       </div>
     </>
   );

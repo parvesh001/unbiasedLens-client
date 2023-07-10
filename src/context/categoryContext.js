@@ -21,7 +21,7 @@ const CategoryContextProvider = ({ children }) => {
           throw new Error(errData.message);
         }
         const data = await response.json();
-        setCategories(data.categories);
+        setCategories(data.data.categories);
       } catch (err) {
         setError({ scenario: "error", message: err.message });
       }
