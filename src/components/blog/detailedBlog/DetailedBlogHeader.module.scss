@@ -1,23 +1,5 @@
 .blogHeaderContainer {
   color: #fff;
-  .authorImg {
-    width: 33px;
-    border-radius: 50%;
-    box-shadow: 1px 1px 10px #f9f7f7;
-  }
- .author{
-  cursor: pointer;
-  .authorName {
-    line-height: 0;
-    margin-bottom: 0;
-    font-size: 12px;
-    & ~ small {
-      opacity: 50%;
-      text-transform: lowercase;
-      font-size: 10px
-    }
-  }
- }
   .blogIntro {
     margin-top: 2rem;
     position: relative;
@@ -40,20 +22,8 @@
 @media screen and (min-width:'1024px') {
     .blogHeaderContainer{
         display: grid;
-        height: 75vh;
-        grid-template-rows: 10% 90%;
-        .authorImg{
-          width: 50px;
-        }
-       .author{
-        .authorName{
-          font-size: 1rem;
-          line-height: 1;
-          & ~ small {
-           font-size: 12px;
-          }
-        }
-       }
+        height: 80vh;
+        grid-template-rows: 5% 95%;
        .blogIntro{
         .blogTitle {
          h5{

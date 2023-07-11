@@ -71,8 +71,7 @@ export default function CategoriesPortal() {
   };
 
   if (isLoading) return <Loading />;
-  if (error)
-    return <h4 className="fs-4 text-center mt-5 text-light">{error}</h4>;
+  if(error) return <p className="text-danger-emphasis fw-bold text-center fs-4">{error}</p>
 
   let content = categories.map((category) => {
     return (

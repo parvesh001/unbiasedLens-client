@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { RiMenu4Line } from "react-icons/ri";
-import styles from "./Navbar.module.scss";
 import Alert from "../../UI/Alert";
 import { AuthContext } from "../../context/authContext";
 import AdminPortalLinks from "../admin/AdminPortalLinks";
 import { CategoryContext } from "../../context/categoryContext";
+import styles from "./Navbar.module.scss";
 
 export default function Navbar() {
   const { author, isLogedIn, logout } = useContext(AuthContext);
@@ -25,7 +25,7 @@ export default function Navbar() {
     moreCategories.push(categories[i]);
   }
 
-  const navLinks = showedCategories.map((category, index) => {
+  const navLinks = showedCategories.map((category) => {
     return (
       <li className="nav-item" key={category._id}>
         <NavLink

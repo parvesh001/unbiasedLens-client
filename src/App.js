@@ -12,10 +12,15 @@ import { AuthContext } from "./context/authContext";
 import AdminAuthorsPortalPage from "./pages/admin/AdminAuthorsPortalPage";
 import AdminCatrgoriesPortalPage from "./pages/admin/AdminCatrgoriesPortalPage";
 import AdminAddCategoryPortalPage from "./pages/admin/AdminAddCategoryPortalPage";
+import Loading from "./components/loadingSpinner/Loading";
+import { CategoryContext } from "./context/categoryContext";
 
 function App() {
-  const { author } = useContext(AuthContext);
+  const { author, isLogedIn } = useContext(AuthContext);
+  const {categories,isLoading, error} = useContext(CategoryContext)
 
+  if(isLoading) return <Loading/>
+  if(error) return <p className="text-danger-emphasis fw-bold text-center fs-4">{error.message}</p>
   return (
     <Layout>
       <Routes>
@@ -31,17 +36,17 @@ function App() {
         <Route path="/blogs/create-blog" element={<CreateBlogPage />} />
         <Route path="/author/:name/:id" element={<ProfilePage />} />
         <Route path="/author/:name/:id/blogs" element={<AuthorBlogsPage />} />
-        <Route
+       {isLogedIn &&  <Route
           path="/author/:name/:id/upload-profile"
           element={<UploadProfilePage />}
-        />
+        />}
         <Route
           path="/"
-          element={<Navigate replace to="/blogs/category/technology" />}
+          element={<Navigate replace to={`/blogs/category/${categories[0].slug}`} />}
         />
         <Route
           path="*"
-          element={<Navigate replace to="/blogs/category/technology" />}
+          element={<Navigate replace to={`/blogs/category/${categories[0].slug}`}  />}
         />
 
         {author && author.role === "admin" && (

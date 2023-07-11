@@ -71,7 +71,7 @@ export default function DetailedBlog({ blogId }) {
   };
 
   if (isLoading) return <Loading />;
-  if (error) return <p>{error}</p>;
+  if (error) return <p className="text-danger-emphasis fw-bold text-center fs-4">{error}</p>;
 
   return (
     <>

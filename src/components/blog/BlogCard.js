@@ -28,7 +28,7 @@ export default function BlogCard({
       <img
         src={post.image}
         className={`card-img ${styles.blogCardImg}`}
-        alt="..."
+        alt={post.title}
       />
       <div className="card-img-overlay d-grid p-2 p-md-3">
         <div className="card-subtitle">

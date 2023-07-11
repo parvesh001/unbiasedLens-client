@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
-
-import useHttp from "../../../hooks/use-http";
+import { useContext } from "react";
 import CreateBlogForm from "./CreateBlogForm";
+import { CategoryContext } from "../../../context/categoryContext";
 
 export default function CreateBlog() {
-  const { sendRequest: fetchBlogCategories } = useHttp();
-  const [categories, setCategories] = useState([]);
-  const [error, setError] = useState(null);
-  const blogCategories = categories.map((category) => {
+  const {categories, error} = useContext(CategoryContext)
+ 
+  const blogCategories = categories?.map((category) => {
     return (
       <option key={category._id} value={category.name}>
         {category.name}
@@ -15,19 +13,7 @@ export default function CreateBlog() {
     );
   });
 
-  useEffect(() => {
-    (async function () {
-      try {
-        const response = await fetchBlogCategories({ endpoint: 'category' });
-        const availableCategories = [...response.data.categories];
-        setCategories(availableCategories);
-      } catch (err) {
-        setError(err.message)
-      }
-    })();
-  }, [fetchBlogCategories]);
-
-  if(error) return <p>{error}</p>
+  if(error) return <p className="text-danger-emphasis fw-bold text-center fs-4">{error.message}</p>
 
   return <CreateBlogForm blogCategories={blogCategories} />;
 }

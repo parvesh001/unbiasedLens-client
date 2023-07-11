@@ -109,8 +109,9 @@ export default function Blogs({ uniqueEndpoint, current }) {
   };
 
   if (isLoading) return <Loading />;
+  if (error) return <p className="text-light fw-bold text-center fs-4">{error}</p>;
   if (!blogs.length) return <NotFound />;
-  if (error) return <p>{error}</p>;
+
 
   let blogCards = blogs.map((blog) => {
     return (

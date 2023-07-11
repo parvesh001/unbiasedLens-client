@@ -37,6 +37,7 @@ export default function UploadProfile() {
       endpoint = "authors/updateProfile";
       method = "PATCH";
     }
+    console.log(endpoint)
     const formData = new FormData();
     formData.append("profilePicture", selectedImage);
     try {
