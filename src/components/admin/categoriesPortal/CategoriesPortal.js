@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import useHttp from "../../../hooks/use-http";
 import Loading from "../../loadingSpinner/Loading";
 import CategoryCard from "./CategoryCard";
 import Alert from "../../../UI/Alert";
-import { AuthContext } from "../../../context/authContext";
+// import { AuthContext } from "../../../context/authContext";
 import Pagination from "../../pagination/Pagination";
 
 export default function CategoriesPortal() {
@@ -12,9 +12,9 @@ export default function CategoriesPortal() {
   const [error, setError] = useState(null);
   const [alert, setAlert] = useState(null);
   const { sendRequest: fetchCategories } = useHttp();
-  const { sendRequest: deleteCategory } = useHttp();
-  const { sendRequest: updateCategory } = useHttp();
-  const { token } = useContext(AuthContext);
+  // const { sendRequest: deleteCategory } = useHttp();
+  // const { sendRequest: updateCategory } = useHttp();
+  // const { token } = useContext(AuthContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const docsLimit = 3;
@@ -37,37 +37,39 @@ export default function CategoriesPortal() {
   }, [fetchCategories, currentPage, docsLimit]);
 
   const deleteCategoryHandler = async (id) => {
-    try {
-      await deleteCategory({
-        endpoint: `category/${id}`,
-        method: "DELETE",
-        headers: { Authorization: "Bearer " + token },
-      });
-      setCategories((prevCategories) =>
-        prevCategories.filter((category) => category.id !== id)
-      );
-      setAlert({ scenario: "success", message: "Category deleted" });
-    } catch (err) {
-      setAlert({ scenario: "error", message: err.message });
-    }
+    // try {
+    //   await deleteCategory({
+    //     endpoint: `category/${id}`,
+    //     method: "DELETE",
+    //     headers: { Authorization: "Bearer " + token },
+    //   });
+    //   setCategories((prevCategories) =>
+    //     prevCategories.filter((category) => category.id !== id)
+    //   );
+    //   setAlert({ scenario: "success", message: "Category deleted" });
+    // } catch (err) {
+    //   setAlert({ scenario: "error", message: err.message });
+    // }
+    setAlert({ scenario: "Success", message: 'Owner Did not activate this action' });
   };
 
   const updateCategoryHandler = async (id, updatedCategory) => {
-    try {
-      await updateCategory({
-        endpoint: `category/${id}`,
-        method: "PATCH",
-        headers: { Authorization: "Bearer " + token },
-      });
-      setCategories((prevCategories) =>
-        prevCategories.map((category) =>
-          category.id === id ? updatedCategory : category
-        )
-      );
-      setAlert({ scenario: "success", message: "Category updated" });
-    } catch (err) {
-      setAlert({ scenario: "error", message: err.message });
-    }
+    // try {
+    //   await updateCategory({
+    //     endpoint: `category/${id}`,
+    //     method: "PATCH",
+    //     headers: { Authorization: "Bearer " + token },
+    //   });
+    //   setCategories((prevCategories) =>
+    //     prevCategories.map((category) =>
+    //       category.id === id ? updatedCategory : category
+    //     )
+    //   );
+    //   setAlert({ scenario: "success", message: "Category updated" });
+    // } catch (err) {
+    //   setAlert({ scenario: "error", message: err.message });
+    // }
+    setAlert({ scenario: "Success", message: 'Owner Did not activate this action' });
   };
 
   if (isLoading) return <Loading />;

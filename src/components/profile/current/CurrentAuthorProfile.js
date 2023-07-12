@@ -7,6 +7,7 @@ import AuthorStats from "../AuthorStats";
 import Alert from "../../../UI/Alert";
 import Loading from "../../loadingSpinner/Loading";
 import styles from "./CurrentAuthorProfile.module.scss";
+import { motion } from "framer-motion";
 
 export default function CurrentAuthorProfile() {
   const { sendRequest: fetchCurrentAuthor } = useHttp();
@@ -30,6 +31,8 @@ export default function CurrentAuthorProfile() {
         });
         setCurrentAuthor(response.data.author);
         setIsLoading(false);
+        setShowFollowers(false);
+        setShowFollowings(false);
       } catch (err) {
         setIsLoading(false);
         setError(err.message);
@@ -38,11 +41,11 @@ export default function CurrentAuthorProfile() {
   }, [fetchCurrentAuthor, token]);
 
   const authorUpdateHandler = async ({ name, email }) => {
-    setUpdateLoading(true)
+    setUpdateLoading(true);
     try {
       const response = await updateAuthor({
         endpoint: "authors/updateMe",
-        method:'PATCH',
+        method: "PATCH",
         body: JSON.stringify({ name, email }),
         headers: {
           Authorization: "Bearer " + token,
@@ -54,16 +57,18 @@ export default function CurrentAuthorProfile() {
       setCurrentAuthor((author) => {
         return { ...author, name: updatedName, email: updatedEmail };
       });
-      setUpdateLoading(false)
+      setUpdateLoading(false);
     } catch (err) {
-      setAlert({scenario:'error', message:err.message})
-      setUpdateLoading(false)
+      setAlert({ scenario: "error", message: err.message });
+      setUpdateLoading(false);
     }
-    
   };
 
   if (isLoading) return <Loading />;
-  if (error) return <p className="text-danger-emphasis fw-bold text-center fs-4">{error}</p>;
+  if (error)
+    return (
+      <p className="text-danger-emphasis fw-bold text-center fs-4">{error}</p>
+    );
 
   return (
     <>
@@ -98,8 +103,13 @@ export default function CurrentAuthorProfile() {
           onClose={() => setShowFollowings(false)}
         />
       )}
-      {updateLoading && <Loading/>}
-      <div className={styles.currentAuthorProfile}>
+      {updateLoading && <Loading />}
+      <motion.div
+        className={styles.currentAuthorProfile}
+        initial={{ opacity: 0, y: "-100vh" }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ type: "spring", stiffness:100, duration: 0.4 }}
+      >
         <AuthorDetails
           current={true}
           author={currentAuthor}
@@ -108,7 +118,7 @@ export default function CurrentAuthorProfile() {
           onShowFollowings={() => setShowFollowings(true)}
         />
         <CurrentAuthorUpdateForm onAuthorUpdate={authorUpdateHandler} />
-      </div>
+      </motion.div>
     </>
   );
 }

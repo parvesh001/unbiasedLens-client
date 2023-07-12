@@ -1,9 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { motion } from "framer-motion";
 
 export default function Alert({ scenario, message, dismiss }) {
   return ReactDOM.createPortal(
-    <div className="position-fixed top-0 start-50 translate-middle-x mt-5 z-3">
+    <motion.div
+      className="position-fixed top-0 start-50 translate-middle-x mt-5 z-3"
+      initial={{ opacity:0}}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.2 }}
+    >
       <div
         className={`alert alert-${
           scenario === "error" ? "danger" : "success"
@@ -16,7 +22,7 @@ export default function Alert({ scenario, message, dismiss }) {
         </p>
         <button type="button" className="btn-close" onClick={dismiss}></button>
       </div>
-    </div>,
+    </motion.div>,
     document.getElementById("alert-root")
   );
 }

@@ -12,11 +12,12 @@ const CategoryContextProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  console.log(process.env.REACT_APP_BACKEND_DOMAIN)
 
   useEffect(() => {
     (async function () {
       try {
-        const response = await fetch("http://127.0.0.1:8080/api/v1/category");
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_DOMAIN}/api/v1/category`);
         if (!response.ok) {
           const errData = await response.json();
           throw new Error(errData.message);

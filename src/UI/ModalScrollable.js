@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./ModalScrollable.module.scss";
+import {motion} from 'framer-motion'
 
 const BackdropShadow = ({onClose}) => {
   return <div className={styles["backdrop"]} onClick={onClose}></div>;
@@ -8,7 +9,9 @@ const BackdropShadow = ({onClose}) => {
 
 const ModelContent = ({title, body, onClose}) => {
   return (
-    <div className={styles.modalContent}>
+    <motion.div className={styles.modalContent} initial={{ opacity: 0}}
+    animate={{ opacity: 1 }}
+    transition={{duration: 0.4 }}>
       <div className={styles.modalHeader}>
         <h4 className={styles.modalTitle}>{title}</h4>
       </div>
@@ -16,7 +19,7 @@ const ModelContent = ({title, body, onClose}) => {
       <div className={styles.modalFooter}>
         <button className="btn btn-primary" onClick={onClose}>Close</button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

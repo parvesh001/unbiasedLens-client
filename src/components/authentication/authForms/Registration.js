@@ -4,7 +4,7 @@ import useInput from "../../../hooks/useInput";
 import { AuthContext } from "../../../context/authContext";
 import Alert from "../../../UI/Alert";
 import useHttp from "../../../hooks/use-http";
-import { json } from "react-router-dom";
+
 
 export default function Registration({ onLogingWithExistingAcc }) {
   const [isLoading, setIsLoading] = useState(false);

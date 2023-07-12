@@ -2,6 +2,7 @@ import React from "react";
 import { MdAddAPhoto } from "react-icons/md";
 import styles from "./AuthorDetails.module.scss";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function AuthorDetails({
   current,
@@ -18,23 +19,27 @@ export default function AuthorDetails({
     <div className={styles.authorDetailsContainer}>
       <div className="d-flex flex-column flex-lg-row w-100 justify-content-between">
         <div className={styles.authorMetaData}>
-          <div
+          <motion.div
             role="button"
             onClick={() =>
               navigate(`/author/${author.name}/${author._id}/blogs`)
             }
+            whileHover={{ scale: 1.1, y: -3 }}
+            transition={{ type: "spring", stiffness: 200, duration: 0.2 }}
           >
             <h6>{author.posts.length}</h6>
             <span>Posts</span>
-          </div>
-          <div role="button" onClick={onShowFollowers}>
+          </motion.div>
+          <motion.div role="button" onClick={onShowFollowers}    whileHover={{ scale: 1.1, y: -3 }}
+            transition={{ type: "spring", stiffness: 200, duration: 0.2 }}>
             <h6>{author.followers.length}</h6>
             <span>Followers</span>
-          </div>
-          <div role="button" onClick={onShowFollowings}>
+          </motion.div>
+          <motion.div role="button" onClick={onShowFollowings}    whileHover={{ scale: 1.1, y: -3 }}
+            transition={{ type: "spring", stiffness: 200, duration: 0.2 }}>
             <h6>{author.followings.length}</h6>
             <span>Followings</span>
-          </div>
+          </motion.div>
         </div>
         <div className={styles.authorInformation}>
           <div>
@@ -66,9 +71,10 @@ export default function AuthorDetails({
         </div>
         <div>
           {current ? (
-            <button className="btn btn-primary" onClick={onShowProfileViewers}>
+            <motion.button className="btn btn-primary" onClick={onShowProfileViewers}    whileHover={{ scale: 1.1, y: -3 }}
+            transition={{ type: "spring", stiffness: 200, duration: 0.2 }}>
               See Profile Viewers
-            </button>
+            </motion.button>
           ) : alreadyFollowed ? (
             <button className="btn  btn-outline-primary" onClick={onUnfollow}>
               Unfollow

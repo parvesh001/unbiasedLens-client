@@ -36,7 +36,7 @@ export default function Blogs({ uniqueEndpoint, current }) {
         const data = await fetchBlogs({
           endpoint: `${uniqueEndpoint}&page=${currentPage}&limit=${docsLimit}`,
         });
-        let {posts, totalDocs} = data.data
+        let { posts, totalDocs } = data.data;
         let transformedPosts = transformPosts(posts, authorId);
         setBlogs(transformedPosts);
         setTotalPages(Math.ceil(totalDocs / docsLimit));
@@ -109,9 +109,9 @@ export default function Blogs({ uniqueEndpoint, current }) {
   };
 
   if (isLoading) return <Loading />;
-  if (error) return <p className="text-light fw-bold text-center fs-4">{error}</p>;
+  if (error)
+    return <p className="text-light fw-bold text-center fs-4">{error}</p>;
   if (!blogs.length) return <NotFound />;
-
 
   let blogCards = blogs.map((blog) => {
     return (
@@ -137,7 +137,9 @@ export default function Blogs({ uniqueEndpoint, current }) {
           dismiss={() => setAlert(null)}
         />
       )}
-      <div className={styles.blogsContainer}>
+      <div
+        className={styles.blogsContainer}
+      >
         <div className={styles.blogs}>{blogCards}</div>
         <Pagination
           currentPage={currentPage}

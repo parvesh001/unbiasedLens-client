@@ -6,6 +6,7 @@ import AuthorStats from "../AuthorStats";
 import styles from "./OtherAuthorProfile.module.scss";
 import { AuthContext } from "../../../context/authContext";
 import Alert from "../../../UI/Alert";
+import {motion} from 'framer-motion'
 
 export default function OtherAuthorProfile({ id }) {
   const [otherAuthor, setOtherAuthor] = useState(null);
@@ -31,6 +32,8 @@ export default function OtherAuthorProfile({ id }) {
         });
         setOtherAuthor(response.data.author);
         setIsLoading(false);
+        setShowFollowers(false);
+        setShowFollowings(false)
       } catch (err) {
         setIsLoading(false);
         setError(err.message);
@@ -117,7 +120,9 @@ export default function OtherAuthorProfile({ id }) {
           onClose={() => setShowFollowings(false)}
         />
       )}
-      <div className={styles.otherAuthorProfile}>
+      <motion.div className={styles.otherAuthorProfile} initial={{ opacity: 0, y: "-100vh" }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ type: "spring", stiffness:100, duration: 0.4 }}>
         <AuthorDetails
           author={otherAuthor}
           current={false}
@@ -127,7 +132,7 @@ export default function OtherAuthorProfile({ id }) {
           onFollow={authorFollowHandler}
           onUnfollow={authorUnfollowHandler}
         />
-      </div>
+      </motion.div>
     </>
   );
 }

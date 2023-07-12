@@ -5,6 +5,7 @@ import Alert from "../../UI/Alert";
 import { AuthContext } from "../../context/authContext";
 import AdminPortalLinks from "../admin/AdminPortalLinks";
 import { CategoryContext } from "../../context/categoryContext";
+import { motion } from "framer-motion";
 import styles from "./Navbar.module.scss";
 
 export default function Navbar() {
@@ -27,7 +28,12 @@ export default function Navbar() {
 
   const navLinks = showedCategories.map((category) => {
     return (
-      <li className="nav-item" key={category._id}>
+      <motion.li
+        className="nav-item"
+        key={category._id}
+        whileHover={{ scale: 1.1, y: -3 }}
+        transition={{ type: "spring", stiffness: 200, duration: 0.4 }}
+      >
         <NavLink
           className={(navData) =>
             navData.isActive ? `nav-link ${styles.active}` : "nav-link"
@@ -36,13 +42,17 @@ export default function Navbar() {
         >
           {category.name}
         </NavLink>
-      </li>
+      </motion.li>
     );
   });
 
   const moreNavLinks = moreCategories.map((category) => {
     return (
-      <li key={category._id}>
+      <motion.li
+        key={category._id}
+        whileHover={{ y: -3 }}
+        transition={{ type: "spring", stiffness: 200, duration: 0.4 }}
+      >
         <NavLink
           className={(navData) =>
             navData.isActive
@@ -53,13 +63,19 @@ export default function Navbar() {
         >
           {category.name}
         </NavLink>
-      </li>
+      </motion.li>
     );
   });
 
   return (
     <>
-      {error && <Alert scenario={error.scenario} message={error.message} dismiss={setError}/>}
+      {error && (
+        <Alert
+          scenario={error.scenario}
+          message={error.message}
+          dismiss={setError}
+        />
+      )}
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
@@ -99,16 +115,18 @@ export default function Navbar() {
               </li>
               {author && author.role === "admin" && <AdminPortalLinks />}
               <li className="nav-item">
-                <button
+                <motion.button
                   className="btn btn-primary mx-md-2 mt-3 mt-md-0"
                   onClick={
                     !isLogedIn
                       ? () => navigate("/author-authentication")
                       : () => navigate("/blogs/create-blog")
                   }
+                  whileHover={{ scale: 1.1, y: -3 , boxShadow:'0px 2px  10px rgba(0,0,0,.4)'}}
+                  transition={{type:'spring', stiffness:200, duration:.2}}
                 >
                   Create
-                </button>
+                </motion.button>
               </li>
               {isLogedIn && (
                 <li
@@ -121,9 +139,10 @@ export default function Navbar() {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    <div className={styles.profile}>
+                    <motion.div className={styles.profile}  whileHover={{ scale: 1.1, y: -3 , boxShadow:'0px 2px  10px rgba(0,0,0,.4)'}}
+                  transition={{type:'spring', stiffness:200, duration:.2}}>
                       <img src={author.photo} className="w-100" alt="user" />
-                    </div>
+                    </motion.div>
                   </div>
                   <ul className="dropdown-menu">
                     <li>
@@ -138,6 +157,7 @@ export default function Navbar() {
                       <button
                         className="dropdown-item text-secondary"
                         onClick={logout}
+
                       >
                         Logout
                       </button>
@@ -147,12 +167,14 @@ export default function Navbar() {
               )}
               {!isLogedIn && (
                 <li className="nav-item">
-                  <button
+                  <motion.button
                     className="btn btn-primary my-3 my-md-0"
                     onClick={() => navigate("/author-authentication")}
+                    whileHover={{ scale: 1.1, y: -3 , boxShadow:'0px 2px  10px rgba(0,0,0,.4)'}}
+                    transition={{type:'spring', stiffness:200, duration:.2}}
                   >
                     Register
-                  </button>
+                  </motion.button>
                 </li>
               )}
             </ul>
