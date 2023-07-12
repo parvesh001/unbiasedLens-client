@@ -9,7 +9,7 @@ import styles from "./Blogs.module.scss";
 import Alert from "../../UI/Alert";
 import Pagination from "../pagination/Pagination";
 
-export default function Blogs({ uniqueEndpoint, current }) {
+export default function Blogs({ uniqueEndpoint, current, category }) {
   const { author, isLogedIn, token } = useContext(AuthContext);
   const [blogs, setBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +31,12 @@ export default function Blogs({ uniqueEndpoint, current }) {
   let authorId = author ? author._id : null;
 
   useEffect(() => {
+    setCurrentPage(1);
+  }, [category]);
+
+  useEffect(() => {
     (async function () {
+      setIsLoading(true)
       try {
         const data = await fetchBlogs({
           endpoint: `${uniqueEndpoint}&page=${currentPage}&limit=${docsLimit}`,
@@ -40,7 +45,9 @@ export default function Blogs({ uniqueEndpoint, current }) {
         let transformedPosts = transformPosts(posts, authorId);
         setBlogs(transformedPosts);
         setTotalPages(Math.ceil(totalDocs / docsLimit));
-        setIsLoading(false);
+        setTimeout(()=>{
+          setIsLoading(false);
+        },1000)
       } catch (err) {
         setError(err.message);
         setIsLoading(false);
@@ -137,9 +144,7 @@ export default function Blogs({ uniqueEndpoint, current }) {
           dismiss={() => setAlert(null)}
         />
       )}
-      <div
-        className={styles.blogsContainer}
-      >
+      <div className={styles.blogsContainer}>
         <div className={styles.blogs}>{blogCards}</div>
         <Pagination
           currentPage={currentPage}

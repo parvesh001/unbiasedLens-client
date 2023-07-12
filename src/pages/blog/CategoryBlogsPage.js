@@ -19,7 +19,7 @@ export default function CategoryBlogsPage() {
       >
         {title}
       </motion.h2>
-      <Blogs uniqueEndpoint={endpoint} />
+      <Blogs uniqueEndpoint={endpoint} category={blogCategory}/>
     </div>
   );
 }
