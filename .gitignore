@@ -12,11 +12,10 @@
 /build
 
 # hosting
-/.firebase
-/.github
+.firebase/
+.github/
 .firebaserc
 firebase.json
-
 
 # misc
 .DS_Store
