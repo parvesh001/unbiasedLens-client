@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# WELCOME TO THE UNBIASED LENS REACT WEB APP
+The ultimate blog web application that provides a platform for sharing ideas, stories, and opinions in a secure and engaging environment with an unbiased perspective. With robust authentication and authorization mechanisms, Unbiased Lens ensures a seamless and personalized experience for every user.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Wanna see? here is the link: https://unbiased-lens.web.app
 
-## Available Scripts
+## Glimpses
+Authentication Page
+![registration](https://github.com/parvesh001/unbiasedLens-client/assets/110919339/0a755ace-ef2d-4f05-9769-a1328e38bff6)
 
-In the project directory, you can run:
+Category Blogs Page
+![category blogs](https://github.com/parvesh001/unbiasedLens-client/assets/110919339/f4c339d4-c4b4-4b37-b027-b7c12bdb3844)
 
-### `npm start`
+Author Profile Page
+![profile](https://github.com/parvesh001/unbiasedLens-client/assets/110919339/d37868a0-ca7a-4b8f-8304-9836976b1452)
+![profile viewers](https://github.com/parvesh001/unbiasedLens-client/assets/110919339/c83441df-39c9-4b9c-a51c-713813e298e3)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Other Author's Profile Page
+![author follow](https://github.com/parvesh001/unbiasedLens-client/assets/110919339/64afd841-b6a1-4710-a3b2-addf8f147244)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Post Creation Page
+![create post](https://github.com/parvesh001/unbiasedLens-client/assets/110919339/cdbe90fb-7f03-4859-83fa-92f69ad3062d)
 
-### `npm test`
+Admin's Authors Management Portal
+![authors management](https://github.com/parvesh001/unbiasedLens-client/assets/110919339/1a76f166-fff4-4892-a17e-a182b94e8be6)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Key Features
+- Robust Authentication and Authorization: Your security is our priority. Unbiased Lens implements a powerful authentication system, allowing users to create accounts, log in securely, and access personalized features.
 
-### `npm run build`
+- Admin Privileges: Admins hold the key to maintaining the platform's integrity. They can block authors, manage blog categories, and perform other administrative tasks to ensure a safe and enjoyable environment for all users.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Engaging User Interactions: Connect with a vibrant community of bloggers. Like, dislike, view, comment, and follow other authors to stay updated with their latest posts and foster meaningful discussions.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Protected Routes: Certain routes are reserved for specific user roles. Admins, authors, and logged-in users each have access to unique features and functionalities tailored to their needs.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Categorized Blog Posts: Explore an extensive collection of blog posts neatly organized into categories. Easily navigate through different topics that pique your interest and discover fresh perspectives.
 
-### `npm run eject`
+- Author Empowerment: Logged-in authors enjoy a range of privileges. They can interact with posts by liking, disliking, commenting, and even creating their own captivating blog entries.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Profile Management: Authors have complete control over their profiles. They can upload a personalized profile picture, update their credentials, and gain insights into their profile viewers, followers, followings, and posts created.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Pagination and Responsive Design: Seamlessly browse through the vast collection of blog posts with pagination, ensuring a smooth and efficient user experience across various devices.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Robust Validation and Error Handling: Interact with intuitive and user-friendly UIs that provide real-time validation feedback. Unbiased Lens handles errors gracefully, keeping you informed with helpful alert messages and fallback UIs.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Admin Portal: Admins have access to a dedicated portal where they can perform administrative tasks efficiently, manage blog categories, and ensure the platform's smooth operation.
 
-## Learn More
+- Visual Appeal and Animation: Unbiased Lens leverages the power of framer-motion to incorporate captivating animations, enhancing the overall visual appeal and delighting users with a polished and immersive experience.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Styling with Sass and CSS Modules: The application's UI is beautifully crafted using the expressive power of Sass and CSS Modules. Enjoy a visually stunning and cohesive design throughout your journey on Unbiased Lens.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If you have any questions or suggestions, feel free to reach out to me at vparvesh830@gmail.com. I look forward to hearing from you!
