@@ -3,6 +3,8 @@ The ultimate blog web application that provides a platform for sharing ideas, st
 
 Wanna see? here is the link: https://unbiased-lens.web.app
 
+Note: The backend code for this react app is available in a separate repository. You can find it at (https://github.com/parvesh001/unbiasedLens-server).
+
 ## Glimpses
 Authentication Page
 ![registration](https://github.com/parvesh001/unbiasedLens-client/assets/110919339/0a755ace-ef2d-4f05-9769-a1328e38bff6)
@@ -47,5 +49,11 @@ Admin's Authors Management Portal
 - Visual Appeal and Animation: Unbiased Lens leverages the power of framer-motion to incorporate captivating animations, enhancing the overall visual appeal and delighting users with a polished and immersive experience.
 
 - Styling with Sass and CSS Modules: The application's UI is beautifully crafted using the expressive power of Sass and CSS Modules. Enjoy a visually stunning and cohesive design throughout your journey on Unbiased Lens.
+
+## Technologies
+- React JS
+- JavaScript
+- CSS/SASS
+- React Router
 
 If you have any questions or suggestions, feel free to reach out to me at vparvesh830@gmail.com. I look forward to hearing from you!
