@@ -5,9 +5,12 @@
         grid-template-columns: repeat(2,1fr);
         gap: 1rem;
     }
-    @media screen and(min-width:'1454px') {
+    @media screen and(min-width:'1454px') and(max-width:'1899px') {
         grid-template-columns: repeat(3, minmax(200px, 430px));
         margin:0 auto;
         justify-content: center;
+    }
+    @media screen and(min-width:'1900px'){
+        grid-template-columns: repeat(3, 1fr);
     }
 }
