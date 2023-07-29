@@ -34,7 +34,7 @@ const DetailedBlogPage = React.lazy(() =>
 function App() {
   const { author, isLogedIn } = useContext(AuthContext);
   const { categories, isLoading, error } = useContext(CategoryContext);
-
+  console.log(author)
   if (isLoading) return <Loading />;
   if (error)
     return (
