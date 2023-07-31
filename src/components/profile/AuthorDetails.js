@@ -3,6 +3,7 @@ import { MdAddAPhoto } from "react-icons/md";
 import styles from "./AuthorDetails.module.scss";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { VscUnverified, VscVerified } from "react-icons/vsc";
 
 export default function AuthorDetails({
   current,
@@ -51,7 +52,11 @@ export default function AuthorDetails({
         </div>
         <div className={styles.authorInformation}>
           <div>
-            <div className={styles.authorImg}>
+            <div
+              className={`${styles.authorImg} ${
+                author.verified ? styles.verified : styles.unverified
+              }`}
+            >
               <img
                 src={author.photo}
                 className="rounded-circle"
@@ -60,7 +65,14 @@ export default function AuthorDetails({
               />
             </div>
             <div className={styles.authorNameEmail}>
-              <h4>{author.name}</h4>
+              <h4 className="d-flex justify-content-center">
+                {author.name}{" "}
+                {author.verified ? (
+                  <VscVerified className="text-primary" />
+                ) : (
+                  <VscUnverified className="text-warning" />
+                )}
+              </h4>
               <span>{author.email}</span>
             </div>
           </div>
@@ -76,18 +88,26 @@ export default function AuthorDetails({
               />
             </div>
           )}
-          <div className="bg-warning rounded text-light px-1 mb-5"><span>Unverified</span></div>
         </div>
         <div>
+          {current && !author.verified && <motion.button
+              className="btn btn-primary mb-3 me-md-3"
+              onClick={onShowProfileViewers}
+              whileHover={{ scale: 1.1, y: -3 }}
+              transition={{ type: "spring", stiffness: 200, duration: 0.2 }}
+            >
+             Verify Account
+            </motion.button>}
           {current ? (
             <motion.button
-              className="btn btn-primary"
+              className="btn btn-primary mb-3"
               onClick={onShowProfileViewers}
               whileHover={{ scale: 1.1, y: -3 }}
               transition={{ type: "spring", stiffness: 200, duration: 0.2 }}
             >
               See Profile Viewers
             </motion.button>
+
           ) : alreadyFollowed ? (
             <button className="btn  btn-outline-primary" onClick={onUnfollow}>
               Unfollow
